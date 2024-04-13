@@ -14,29 +14,33 @@ public class ManaLifeController : MonoBehaviour
     [SerializeField] GameObject HPBar;
     [SerializeField] GameObject MPBar;
 
-    [SerializeField] int invocationMana1;
-
     private Image lifeImg;
     private Image manaImg;
 
-    [SerializeField] GameObject creature1;
 
     // Start is called before the first frame update
     void Start()
     {
         lifeImg = HPBar.GetComponent<Image>();
         manaImg = MPBar.GetComponent<Image>();
+        StartCoroutine(ChargeMana());
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        // Código para probar que la barra de vida funciona
-        if (Input.GetKey(KeyCode.Q)) life = life + 0.25f;
-        if (Input.GetKey(KeyCode.E)) life = life - 0.25f;
-
     }
+
+
+    // Método para sumar vida al Player
+    public void restoreHealth(float health)
+    {
+        life = Mathf.Clamp(life + health, 0, maxLife);
+        // Actualización de la barra de vida
+        lifeImg.fillAmount = life / maxLife;
+    }
+
     // Método para restar vida al Player
     public void TakeDamage(float damage)
     {
@@ -65,5 +69,12 @@ public class ManaLifeController : MonoBehaviour
     }
     #endregion
 
-
+    IEnumerator ChargeMana()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+            mana = Mathf.Clamp(mana + 5f, 0, maxMana);
+        }
+    }
 }
