@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour {
     public Transform player;
@@ -11,7 +12,10 @@ public class Enemy : MonoBehaviour {
     //EVENTO (DELEGADO)   --> Avisa de que un enemigo ha muerto
     public delegate void DeadEnemy();
     public static event DeadEnemy OnDeadEnemy;  //(EVENTO)
-    private int distanciaToque = 5;
+    
+    private NavMeshAgent navMeshAgent;
+    private float closestDistance;
+    private Transform closestTarget;
 
     [Header("Estadisticas")]
     public int vidas = 3;
@@ -37,11 +41,12 @@ public class Enemy : MonoBehaviour {
     void Start() {
         saludActual = salud;
         tocaJugador = false;
+        navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
 
     void Update() {
-        float distanciaEnemyPlayer = Vector3.Distance(transform.position, player.position);
+        /*float distanciaEnemyPlayer = Vector3.Distance(transform.position, player.position);
 
         GameObject playerObject = GameObject.FindWithTag("Player");
         if (playerObject != null)
@@ -54,7 +59,8 @@ public class Enemy : MonoBehaviour {
         else
         {
             Debug.LogWarning("No se encontró al jugador en la escena.");
-        }
+        }*/
+        SetNavDestination();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -62,8 +68,8 @@ public class Enemy : MonoBehaviour {
         if (collision.gameObject.CompareTag("Player"))
         {
             StartCoroutine(RecibirDaño());
-            collider.enabled = false;
-            StartCoroutine(ReactivaCollider());
+            //collider.enabled = false;
+            //StartCoroutine(ReactivaCollider());
             tocaJugador = true;
             /*Enemy enemy = collision.gameObject.GetComponent<Enemy>();
 
@@ -88,7 +94,34 @@ public class Enemy : MonoBehaviour {
         }
     }
 
-    
+    private void SetNavDestination() {
+        GameObject[] summons = GameObject.FindGameObjectsWithTag("Summon");
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        closestTarget = null;
+        closestDistance = Mathf.Infinity;
+
+        if (summons.Length != 0) {
+            SetDestinationList(summons);
+        } else {
+            SetDestinationList(players);
+        }        
+
+        if (closestTarget != null) {
+            navMeshAgent.SetDestination(closestTarget.position);
+        }
+        else {
+            Debug.LogWarning("No se encontró ningún jugador en la escena.");
+        }
+    }
+    private void SetDestinationList(GameObject[] targets) {
+        foreach (GameObject target in targets) {
+            float distance = Vector3.Distance(transform.position, target.transform.position);
+            if (distance < closestDistance) {
+                closestTarget = target.transform;
+                closestDistance = distance;
+            }
+        }
+    }
 
     private void Morir()
     {
@@ -96,6 +129,11 @@ public class Enemy : MonoBehaviour {
         {
             speed = 0;
             rb.velocity = Vector2.zero;
+
+            //Evento Aumenta la cantidad de Gemas recogidas
+            if (OnDeadEnemy != null)
+                OnDeadEnemy();
+
             Destroy(this.gameObject, 0.2f);
         }
     }
