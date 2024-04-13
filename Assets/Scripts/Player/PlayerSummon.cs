@@ -19,6 +19,12 @@ public class PlayerSummon : MonoBehaviour {
     [SerializeField] ManaLifeController manaObj;    //Referencia al script ManaLifeController
     [SerializeField] List<float> manaCost;          //Coste de invocaciones
 
+    [Header("Control Spawn")]
+    public float maximumX;
+    public float minimumX;
+    public float maximumZ;
+    public float minimumZ;
+
     private bool[] summonOnCooldown;    // Bool para indicar si un tipo de summon está en cooldown
 
     void Start() {
@@ -53,6 +59,13 @@ public class PlayerSummon : MonoBehaviour {
 
         float x = playerPosition.x + randomDistance * Mathf.Cos(randomAngle * Mathf.Deg2Rad);
         float z = playerPosition.z + randomDistance * Mathf.Sin(randomAngle * Mathf.Deg2Rad);
+
+        //Controla que no se salga del mapa
+        if (x > maximumX) x = maximumX;
+        if (x < minimumX) x = minimumX;
+
+        if (z > maximumZ) z = maximumZ;
+        if (z < minimumZ) z = minimumZ;
 
         // Crear el vector de posición del summon
         Vector3 summonPosition = new Vector3(x, playerPosition.y+ yOffset, z);
