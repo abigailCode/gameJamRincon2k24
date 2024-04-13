@@ -30,11 +30,6 @@ public class OpenNextDoor : MonoBehaviour {
         TextEnemiesLeft();
     }
 
-
-    void Update() {
-        
-    }
-
     private void TextEnemiesLeft() {
         int enemiesLeft = _numOfEnemies - _deadEnemies;
         numOfEnemiesText.text = enemiesLeft.ToString();
