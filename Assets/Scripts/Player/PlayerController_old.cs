@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController_old : MonoBehaviour
 {
 
     public float walkSpeed = 6f;
@@ -17,10 +17,13 @@ public class PlayerController : MonoBehaviour
     private float rotationX = 0;
     private CharacterController characterController;
     private bool canMove = true;
+    private Rigidbody rb;
 
     void Start()
     {
         characterController = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -67,6 +70,18 @@ public class PlayerController : MonoBehaviour
             rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
             rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
+            
+            /*
+            // Calcular la dirección de movimiento en el plano horizontal
+            Vector3 moveDirectionHorizontal = new Vector3(moveDirection.x, 0, moveDirection.z);
+            Debug.Log(moveDirectionHorizontal);
+
+            // Si hay dirección de movimiento, rotar hacia esa dirección
+            if (moveDirectionHorizontal != Vector3.zero) {
+                Quaternion targetRotation = Quaternion.LookRotation(moveDirectionHorizontal);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, lookSpeed * Time.deltaTime);
+            }
+            */
         }
     }
 }

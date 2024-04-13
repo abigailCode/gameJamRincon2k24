@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class ManaLifeController : MonoBehaviour
-{
-
-    // Variable pública para modificar desde cualquier script
-    public float life = 100;
+using static Enemy;
+public class ManaLifeController : MonoBehaviour {
+// Variable pública para modificar desde cualquier script
+public float life = 100;
     public float maxLife = 100;
     public float mana = 100;
     public float maxMana = 100;
@@ -14,35 +13,32 @@ public class ManaLifeController : MonoBehaviour
     [SerializeField] GameObject HPBar;
     [SerializeField] GameObject MPBar;
 
+    [SerializeField] float timeChargeMana;
+    [SerializeField] float chargeManaAmount;
+
     private Image lifeImg;
     private Image manaImg;
 
 
-    // Start is called before the first frame update
     void Start()
     {
+        StartCoroutine(ChargeMana());
         lifeImg = HPBar.GetComponent<Image>();
         manaImg = MPBar.GetComponent<Image>();
-        StartCoroutine(ChargeMana());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
+    //SUSCRIPCIÓN al EVENTO
+    void OnEnable() {
+    //    Enemy.OnDoDamage += TakeDamage;
+    }
+    //DESUSCRIPCIÓN al EVENTO
+    void OnDisable() {
+    //    Enemy.OnDoDamage -= TakeDamage;
     }
 
-
-    // Método para sumar vida al Player
-    public void restoreHealth(float health)
-    {
-        life = Mathf.Clamp(life + health, 0, maxLife);
-        // Actualización de la barra de vida
-        lifeImg.fillAmount = life / maxLife;
-    }
 
     // Método para restar vida al Player
-    public void TakeDamage(float damage)
+    private void TakeDamage(float damage)
     {
         life = Mathf.Clamp(life - damage, 0, maxLife);
         // Actualización de la barra de vida
@@ -57,6 +53,15 @@ public class ManaLifeController : MonoBehaviour
         manaImg.fillAmount = mana / maxMana;
     }
 
+    IEnumerator ChargeMana() {
+        while (true) {
+            yield return new WaitForSeconds(timeChargeMana);
+            mana = Mathf.Clamp(mana + chargeManaAmount, 0, maxMana);
+            // Actualización de la barra de mana
+            manaImg.fillAmount = mana / maxMana;
+        }
+    }
+
     #region Getters
     public float getLife()
     {
@@ -69,12 +74,5 @@ public class ManaLifeController : MonoBehaviour
     }
     #endregion
 
-    IEnumerator ChargeMana()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(1f);
-            mana = Mathf.Clamp(mana + 5f, 0, maxMana);
-        }
-    }
+
 }
