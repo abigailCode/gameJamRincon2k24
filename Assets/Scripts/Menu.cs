@@ -23,7 +23,7 @@ public class Menu : MonoBehaviour
     public void StartGame()
     {
         //GameManager.instance.ResetState();
-        SceneController.instance.LoadScene("Game");
+        SceneController.instance.LoadScene("Abi");
     }
 
     public void QuitGame()
