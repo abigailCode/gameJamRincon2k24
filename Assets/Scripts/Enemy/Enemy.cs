@@ -19,6 +19,8 @@ public class Enemy : MonoBehaviour {
     [Header("Damage")]
     [SerializeField] float damagetime = 0.1f;
     [SerializeField] float amountOfDamage = 10f;
+    private bool canAttack;
+    private bool canGetDamage;
 
     private NavMeshAgent navMeshAgent;
     private float closestDistance;
@@ -45,6 +47,9 @@ public class Enemy : MonoBehaviour {
         saludActual = salud;
         tocaJugador = false;
         navMeshAgent = GetComponent<NavMeshAgent>();
+
+        canAttack = true;
+        canGetDamage = true;
     }
 
 
@@ -67,11 +72,9 @@ public class Enemy : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
-        while (true) {
-            StartCoroutine(RecibirDano());
+        StartCoroutine(RecibirDano());
 
-            StartCoroutine(DamageToPlayer(amountOfDamage));
-        }
+        StartCoroutine(DamageToPlayer(amountOfDamage));
     }
 
     private void OnTriggerExit(Collider other) {
@@ -155,20 +158,31 @@ public class Enemy : MonoBehaviour {
     }
 
     IEnumerator RecibirDano() {
-        puedeDanar = false;
+        while (true) {
+            if (canGetDamage)
+                RecibeDano(damageFromPlayer);
 
-        RecibeDano(damageFromPlayer);
-        yield return new WaitForSeconds(damagetime);
-        puedeDanar = true;
+            canGetDamage = false;
+            yield return new WaitForSeconds(damagetime);
+            canGetDamage = true;
+        }
+        
     }
 
     IEnumerator DamageToPlayer(float damage) {
         Debug.Log("DamageToPlayer " + damage);
-        //Evento hace dano al jugador
-        if (OnDamagePlayer != null)
-            OnDamagePlayer(damage);
+        while (true) {
+            if (canAttack) {
+                //Evento hace dano al jugador
+                if (OnDamagePlayer != null)
+                    OnDamagePlayer(damage);
+            }
 
-        yield return new WaitForSeconds(damagetime);
+
+            canAttack = false;
+            yield return new WaitForSeconds(damagetime);
+            canAttack = true;
+        }        
     }
 
     public bool CheckedIsDead() {
