@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour {
 
     [Header("Booleanos")]
     public bool tocaJugador;
-    private bool puedeDañar = true;
+    private bool puedeDanar = true;
 
     private void Awake()
     {
@@ -62,20 +62,17 @@ public class Enemy : MonoBehaviour {
         }*/
         SetNavDestination();
     }
-
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerStay(Collider collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            StartCoroutine(RecibirDaño());
-            //collider.enabled = false;
-            //StartCoroutine(ReactivaCollider());
+            StartCoroutine(RecibirDano());
             tocaJugador = true;
             /*Enemy enemy = collision.gameObject.GetComponent<Enemy>();
 
             if (enemy != null)
             {
-                RecibeDaño(damageFromPlayer);
+                RecibeDano(damageFromPlayer);
             }*/
         }
         else
@@ -84,9 +81,9 @@ public class Enemy : MonoBehaviour {
         }
     }
 
-    public void RecibeDaño(int daño)
+    public void RecibeDano(int dano)
     {
-        saludActual -= daño;
+        saludActual -= dano;
 
         if (saludActual <= 0)
         {
@@ -138,20 +135,14 @@ public class Enemy : MonoBehaviour {
         }
     }
 
-    IEnumerator RecibirDaño()
+    IEnumerator RecibirDano()
     {
-        puedeDañar = false;
+        puedeDanar = false;
         {
-            RecibeDaño(damageFromPlayer);
+            RecibeDano(damageFromPlayer);
         }
         yield return new WaitForSeconds(0.1f);
-        puedeDañar = true;
-    }
-
-    IEnumerator ReactivaCollider()
-    {
-        yield return new WaitForSeconds(0.1f);
-        collider.enabled = true;
+        puedeDanar = true;
     }
 
     /* Poner cuando muere el enemigo

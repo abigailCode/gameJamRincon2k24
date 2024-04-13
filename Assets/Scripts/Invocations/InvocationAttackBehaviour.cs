@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class InvocationAttackBehaviour : MonoBehaviour
 {
 	//TODO: Avisar al InvocationBehaviour cuando todos los enemigos están muertos.
-	[SerializeField] InvocationModel invocation;
+	/*[SerializeField] InvocationModel invocation;
 
 	//ATTACK
 	bool canAttack = true;
@@ -167,6 +167,6 @@ public class InvocationAttackBehaviour : MonoBehaviour
 		enemiesInAttackArea.Remove(enemy);
 	}
 	#endregion
-
+	*/
 
 }
