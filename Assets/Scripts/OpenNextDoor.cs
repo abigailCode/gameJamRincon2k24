@@ -9,7 +9,16 @@ public class OpenNextDoor : MonoBehaviour {
 
     private List<GameObject> EnemyList;
     private int _numOfEnemies;
-    private int _deadEnemies;
+    private int _deadEnemies = 0;
+
+    //SUSCRIPCIÓN al EVENTO
+    void OnEnable() {
+        Enemy.OnDeadEnemy += OnDeadEnemy;
+    }
+    //DESUSCRIPCIÓN al EVENTO
+    void OnDisable() {
+        Enemy.OnDeadEnemy -= OnDeadEnemy;
+    }
 
     void Start() {
         // Buscar todos los objetos con el tag "Enemy"
@@ -17,6 +26,8 @@ public class OpenNextDoor : MonoBehaviour {
         _numOfEnemies = items.Length;
 
         Door.SetActive(false);
+
+        TextEnemiesLeft();
     }
 
 
@@ -24,11 +35,15 @@ public class OpenNextDoor : MonoBehaviour {
         
     }
 
-    private void OnCollectedGem() {
+    private void TextEnemiesLeft() {
+        int enemiesLeft = _numOfEnemies - _deadEnemies;
+        numOfEnemiesText.text = enemiesLeft.ToString();
+    }
+    private void OnDeadEnemy() {
         _deadEnemies++;
 
         // Actualiza el texto de gemas faltantes
-        TextGemsLeft();
+        TextEnemiesLeft();
 
         CheckWin();
     }
