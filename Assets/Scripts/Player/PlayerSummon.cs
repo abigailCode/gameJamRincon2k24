@@ -1,43 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerSummon : MonoBehaviour {
     [Header("Lists")]
-    [SerializeField] List<KeyCode> summonKey;
+    [SerializeField] List<KeyCode> summonKeyBoard;
     [SerializeField] List<GameObject> summon;
-    [SerializeField] GameObject manaObj;
+    [SerializeField] List<Image> imageList;
 
     [Header("Instance Distance")]
     [SerializeField] float minDistance = 2f;    // Distancia mínima desde el jugador
     [SerializeField] float maxDistance = 5f;    // Distancia máxima desde el jugador
     [SerializeField] float yOffset = 1f;        // Offset de altura en el eje Y
 
-    [Header("Cooldown")]
-    [SerializeField] float[] summonCooldowns;   // Tiempo de cooldown para cada tipo de summon
+    [Header("Config")]
+    [SerializeField] float[] summonCooldowns;       // Tiempo de cooldown para cada tipo de summon
+    [SerializeField] ManaLifeController manaObj;    //Referencia al script ManaLifeController
+    [SerializeField] List<float> manaCost;          //Coste de invocaciones
 
-    private bool[] summonOnCooldown;            // Bandera para indicar si un tipo de summon está en cooldown
+    private bool[] summonOnCooldown;    // Bool para indicar si un tipo de summon está en cooldown
 
     void Start() {
         summonOnCooldown = new bool[summon.Count];
-
+        manaObj = GetComponent<ManaLifeController>();
     }
 
     void Update() {
-        if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(summonKey[0]) && !summonOnCooldown[0]) {
-            Instantiate(summon[0], CalculateSummonPosition(), Quaternion.identity);
-            StartCoroutine(SummonCooldown(0));
+        if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(summonKeyBoard[0]) && !summonOnCooldown[0]) {
+            CheckAndInstance(0);
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(summonKey[1]) && !summonOnCooldown[1]) {
-            Instantiate(summon[1], CalculateSummonPosition(), Quaternion.identity);
-            StartCoroutine(SummonCooldown(1));
+        if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(summonKeyBoard[1]) && !summonOnCooldown[1]) {
+            CheckAndInstance(1);
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(summonKey[2]) && !summonOnCooldown[2]) {
-            Instantiate(summon[2], CalculateSummonPosition(), Quaternion.identity);
-            StartCoroutine(SummonCooldown(2));
+        if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(summonKeyBoard[2]) && !summonOnCooldown[2]) {
+            CheckAndInstance(2);
         }
+
+        //Comprueba constantemente si activa o desactiva la imagen indicadora del summon
+        ShownHideImageSummon();
     }
 
     private Vector3 CalculateSummonPosition() {
@@ -58,8 +61,34 @@ public class PlayerSummon : MonoBehaviour {
     }
 
     IEnumerator SummonCooldown(int index) {
+        // Oculta la imagen indicadora de spawn correspondiente
+        imageList[index].gameObject.SetActive(false);
+
         summonOnCooldown[index] = true;
         yield return new WaitForSeconds(summonCooldowns[index]);
         summonOnCooldown[index] = false;
+
+        // Activa la imagen indicadora de spawn correspondiente
+        imageList[index].gameObject.SetActive(true);
+    }
+
+    private void CheckAndInstance(int numList) {
+        if (manaObj.getMana() >= manaCost[numList]) {
+            manaObj.TakeMana(manaCost[numList]);
+            Instantiate(summon[numList], CalculateSummonPosition(), Quaternion.identity);
+            StartCoroutine(SummonCooldown(numList));
+        }
+    }
+
+    private void ShownHideImageSummon() {
+        foreach (Image img in imageList) {
+            int index = imageList.IndexOf(img);
+            if (manaObj.getMana() >= manaCost[index] && !summonOnCooldown[index]) {
+                img.gameObject.SetActive(true);
+            }
+            else {
+                img.gameObject.SetActive(false);
+            }
+        }
     }
 }

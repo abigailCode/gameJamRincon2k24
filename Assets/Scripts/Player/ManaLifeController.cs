@@ -11,22 +11,22 @@ public class ManaLifeController : MonoBehaviour
     public float mana = 100;
     public float maxMana = 100;
 
-    [SerializeField] GameObject HPBar;
-    [SerializeField] GameObject MPBar;
+    //[SerializeField] GameObject HPBar;
+    //[SerializeField] GameObject MPBar;
 
     [SerializeField] int invocationMana1;
 
     private Image lifeImg;
     private Image manaImg;
 
-    [SerializeField] GameObject creature1;
+    //[SerializeField] GameObject creature1;
 
     // Start is called before the first frame update
-    void Start()
+    /*void Start()
     {
         lifeImg = HPBar.GetComponent<Image>();
         manaImg = MPBar.GetComponent<Image>();
-    }
+    }*/
 
     // Update is called once per frame
     void Update()
@@ -49,8 +49,9 @@ public class ManaLifeController : MonoBehaviour
     public void TakeMana(float invocationMana)
     {
         mana = Mathf.Clamp(mana - invocationMana, 0, maxMana);
+        Debug.Log(mana);
         // Actualización de la barra de mana
-        manaImg.fillAmount = mana / maxMana;
+        //manaImg.fillAmount = mana / maxMana;
     }
 
     #region Getters
