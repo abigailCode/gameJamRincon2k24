@@ -12,13 +12,19 @@ public class Enemy : MonoBehaviour {
     //EVENTO (DELEGADO)   --> Avisa de que un enemigo ha muerto
     public delegate void DeadEnemy();
     public static event DeadEnemy OnDeadEnemy;  //(EVENTO)
-    
+    //EVENTO (DELEGADO)   --> Avisa para hacer dano al player
+    public delegate void damagePlayer(float damage);
+    public static event damagePlayer OnDamagePlayer;  //(EVENTO)
+
+    [Header("Damage")]
+    [SerializeField] float damagetime = 0.1f;
+    [SerializeField] float amountOfDamage = 10f;
+
     private NavMeshAgent navMeshAgent;
     private float closestDistance;
     private Transform closestTarget;
 
     [Header("Estadisticas")]
-    public int vidas = 3;
     public int salud = 100;
     public int saludActual;
     public int damageFromPlayer = 10;
@@ -30,12 +36,9 @@ public class Enemy : MonoBehaviour {
 
     private void Awake()
     {
-        //player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         rb = GetComponent<Rigidbody>();
         collider = GetComponent<Collider>();
-        //sp = GetComponent<SpriteRenderer>();
         //anim = GetComponent<Animator>();
-        //cm = GameObject.FindGameObjectWithTag("VirtualCamera").GetComponent<CinemachineVirtualCamera>();
     }
 
     void Start() {
@@ -62,7 +65,21 @@ public class Enemy : MonoBehaviour {
         }*/
         SetNavDestination();
     }
-    private void OnTriggerStay(Collider collision)
+
+    private void OnTriggerEnter(Collider other) {
+        while (true) {
+            StartCoroutine(RecibirDano());
+
+            StartCoroutine(DamageToPlayer(amountOfDamage));
+        }
+    }
+
+    private void OnTriggerExit(Collider other) {
+        StopCoroutine(RecibirDano());
+
+        StopCoroutine(DamageToPlayer(amountOfDamage));
+    }
+    /*private void OnTriggerStay(Collider collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
@@ -74,12 +91,14 @@ public class Enemy : MonoBehaviour {
             {
                 RecibeDano(damageFromPlayer);
             }*/
+
+            /*StartCoroutine(DamageToPlayer(amountOfDamage));
         }
         else
         {
             tocaJugador = false;
         }
-    }
+    }*/
 
     public void RecibeDano(int dano)
     {
@@ -122,7 +141,7 @@ public class Enemy : MonoBehaviour {
 
     private void Morir()
     {
-        if (vidas <= 0)
+        if (saludActual <= 0)
         {
             speed = 0;
             rb.velocity = Vector2.zero;
@@ -135,19 +154,25 @@ public class Enemy : MonoBehaviour {
         }
     }
 
-    IEnumerator RecibirDano()
-    {
+    IEnumerator RecibirDano() {
         puedeDanar = false;
-        {
-            RecibeDano(damageFromPlayer);
-        }
-        yield return new WaitForSeconds(0.1f);
+
+        RecibeDano(damageFromPlayer);
+        yield return new WaitForSeconds(damagetime);
         puedeDanar = true;
     }
 
-    /* Poner cuando muere el enemigo
-    //Evento Aumenta la cantidad de Gemas recogidas
-    if (OnDeadEnemy != null)
-        OnDeadEnemy();
-    break;*/
+    IEnumerator DamageToPlayer(float damage) {
+        Debug.Log("DamageToPlayer " + damage);
+        //Evento hace dano al jugador
+        if (OnDamagePlayer != null)
+            OnDamagePlayer(damage);
+
+        yield return new WaitForSeconds(damagetime);
+    }
+
+    public bool CheckedIsDead() {
+        if (saludActual <= 0) return true;
+        else return false;
+    }
 }
