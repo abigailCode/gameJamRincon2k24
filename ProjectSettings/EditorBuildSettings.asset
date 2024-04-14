@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Abi.unity
     guid: 5b44d476a49d6744281b0d6bf10cde84
+  - enabled: 1
+    path: Assets/Scenes/Settings.unity
+    guid: 5ba2826a3e291d849a5e4de99eaf587c
   m_configObjects: {}
