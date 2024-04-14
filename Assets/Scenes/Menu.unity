@@ -2674,7 +2674,7 @@ GameObject:
   - component: {fileID: 886104843}
   - component: {fileID: 886104842}
   m_Layer: 5
-  m_Name: SettingsButton (1)
+  m_Name: InstructionsButton (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2746,7 +2746,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1927696740}
         m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: ShowSettings
+        m_MethodName: ShowInstructions
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3236,7 +3236,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1927696740}
         m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: HideSettings
+        m_MethodName: HideInstructions
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
