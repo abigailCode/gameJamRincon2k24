@@ -18,9 +18,10 @@ public class Enemy : MonoBehaviour
 	[SerializeField] float damagetime = 0.1f;
 	[SerializeField] float amountOfDamageToPlayer = 10f;
 	[SerializeField] float amountOfDamageToSummon = 10f;
-	private bool canAttack;
+    private bool canAttack;
+    private bool canAttackSummon;
 
-	private NavMeshAgent navMeshAgent;
+    private NavMeshAgent navMeshAgent;
 	private float closestDistance;
 	private Transform closestTarget;
 
@@ -55,18 +56,18 @@ public class Enemy : MonoBehaviour
 	{
 		if (canAttack)
 		{
-
 			if (other.CompareTag("Summon"))
-				other.GetComponent<InvocationHealthController>().SetDamage(amountOfDamageToSummon);
+                StartCoroutine(DamageToSummon(other, amountOfDamageToSummon));            
 
 			if (other.CompareTag("Player"))
 				StartCoroutine(DamageToPlayer(amountOfDamageToPlayer));
 		}
 	}
 
-	private void OnTriggerExit(Collider other)
-	{
-		StopCoroutine(DamageToPlayer(amountOfDamageToPlayer));
+	private void OnTriggerExit(Collider other) {
+        StopCoroutine(DamageToSummon(other, amountOfDamageToSummon));
+
+        StopCoroutine(DamageToPlayer(amountOfDamageToPlayer));
 	}
 
 	public void RecibeDano(int dano)
@@ -112,26 +113,38 @@ public class Enemy : MonoBehaviour
 		}
 	}
 
-	IEnumerator DamageToPlayer(float damage)
-	{
-		Debug.Log("DamageToPlayer " + damage);
-		while (true)
-		{
-			if (canAttack)
-			{
-				//Evento hace dano al jugador
-				if (OnDamagePlayer != null)
-					OnDamagePlayer(damage);
-			}
+    IEnumerator DamageToPlayer(float damage) {
+        Debug.Log("DamageToPlayer " + damage);
+        while (true) {
+            if (canAttack) {
+                //Evento hace dano al jugador
+                if (OnDamagePlayer != null)
+                    OnDamagePlayer(damage);
+            }
 
 
-			canAttack = false;
-			yield return new WaitForSeconds(damagetime);
-			canAttack = true;
-		}
-	}
+            canAttack = false;
+            yield return new WaitForSeconds(damagetime);
+            canAttack = true;
+        }
+    }
+    IEnumerator DamageToSummon(Collider summonCol, float damage) {
+        Debug.Log("DamageToSummon " + damage);
+        while (true) {
+            if (canAttackSummon) {
+                //Evento hace dano al summon
+                summonCol.GetComponent<InvocationHealthController>().SetDamage(amountOfDamageToSummon);
+            }
+			if (!summonCol.gameObject.activeSelf)
+                StopCoroutine(DamageToSummon(summonCol, damage));
 
-	private void DestroyOnDead()
+            canAttackSummon = false;
+            yield return new WaitForSeconds(damagetime);
+            canAttackSummon = true;
+        }
+    }
+
+    private void DestroyOnDead()
 	{
 		if (CheckedIsDead())
 		{

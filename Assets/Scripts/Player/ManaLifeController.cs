@@ -19,11 +19,12 @@ public class ManaLifeController : MonoBehaviour {
     [SerializeField] float timeChargeMana;
     [SerializeField] float chargeManaAmount;
 
+    [SerializeField] float deathRotationSpeed = 100f;
+
     private Image lifeImg;
     private Image manaImg;
     private bool isDead = false;
 
-    private float deathRotationSpeed = 50f;
 
 
     void Start()
@@ -75,19 +76,21 @@ public class ManaLifeController : MonoBehaviour {
     private void CheckSelfDead() {
         if (life <= 0 && !isDead) {
             //Animación de muerte
-            Debug.Log("Rotando");
-            float elapsedTime = 0f;
-            Quaternion startRotation = transform.rotation;
-            Quaternion endRotation = Quaternion.Euler(90f, 0f, 0f); // Rotación final cuando el jugador está muerto
-
-            while (elapsedTime < 1f) {
-                // Interpola entre la rotación inicial y final para crear una animación de muerte suave
-                transform.rotation = Quaternion.Lerp(startRotation, endRotation, elapsedTime);
-                elapsedTime += Time.deltaTime * deathRotationSpeed;
-            }
-
+            PlayerRotationAnim();
             //Espera un tiempo
             StartCoroutine(WaitDeadAndGameOver());
+        }
+    }
+
+    private void PlayerRotationAnim() {
+        float elapsedTime = 0f;
+        Quaternion startRotation = transform.rotation;
+        Quaternion endRotation = Quaternion.Euler(180f, 0f, 0f); // Rotación final cuando el jugador está muerto
+
+        while (elapsedTime < 5f) {
+            // Interpola entre la rotación inicial y final para crear una animación de muerte suave
+            transform.rotation = Quaternion.Lerp(startRotation, endRotation, elapsedTime);
+            elapsedTime += Time.deltaTime * deathRotationSpeed;
         }
     }
 

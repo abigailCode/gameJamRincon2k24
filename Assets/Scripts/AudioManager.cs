@@ -26,6 +26,7 @@ public class AudioManager : MonoBehaviour
     private void Awake()
     {
         ChangeVolume(PlayerPrefs.GetFloat("BackgroundMusicVolume", 1));
+        ChangeVolume(PlayerPrefs.GetFloat("BackgroundMusicVolume", 1));
         // ----------------------------------------------------------------
         // AQU� ES DONDE SE DEFINE EL COMPORTAMIENTO DE LA CLASE SINGLETON
         // Garantizamos que solo exista una instancia del AudioManager
@@ -56,10 +57,9 @@ public class AudioManager : MonoBehaviour
     private void LoadMusicClips()
     {
         // Los recursos (ASSETS) que se cargan en TIEMPO DE EJECUCI�N DEBEN ESTAR DENTRO de una carpeta denominada /Assets/Resources/Music
-        musicClips["ambient"] = Resources.Load<AudioClip>("Music/Ambient_Theme");
-        musicClips["menu"] = Resources.Load<AudioClip>("Music/menu");
-        musicClips["gameover"] = Resources.Load<AudioClip>("Music/game_over");
-        musicClips["intro"] = Resources.Load<AudioClip>("Music/intro");
+        musicClips["menu"] = Resources.Load<AudioClip>("Music/MenuPrincipalG1_IESElRincon");
+        musicClips["game"] = Resources.Load<AudioClip>("Music/TemaPrincipalG1_IESElRincon");
+;
     }
 
     // M�todo de la clase singleton para reproducir efectos de sonido
