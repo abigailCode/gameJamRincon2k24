@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour {
     public Transform player;
 
     //EVENTO (DELEGADO)   --> Avisa de que un enemigo ha muerto
-    public delegate void DeadEnemy();
+    public delegate void DeadEnemy(GameObject enemyObj);
     public static event DeadEnemy OnDeadEnemy;  //(EVENTO)
     //EVENTO (DELEGADO)   --> Avisa para hacer dano al player
     public delegate void damagePlayer(float damage);
@@ -18,7 +18,6 @@ public class Enemy : MonoBehaviour {
     [SerializeField] float amountOfDamageToPlayer = 10f;
     [SerializeField] float amountOfDamageToSummon = 10f;
     private bool canAttack;
-    private bool canGetDamage;
 
     private NavMeshAgent navMeshAgent;
     private float closestDistance;
@@ -39,7 +38,6 @@ public class Enemy : MonoBehaviour {
         navMeshAgent = GetComponent<NavMeshAgent>();
 
         canAttack = true;
-        canGetDamage = true;
     }
 
 
@@ -117,7 +115,7 @@ public class Enemy : MonoBehaviour {
             Debug.Log("muere");
             //Evento Aumenta la cantidad de Gemas recogidas
             if (OnDeadEnemy != null)
-                OnDeadEnemy();
+                OnDeadEnemy(this.gameObject);
 
             Destroy(this.gameObject);
         }

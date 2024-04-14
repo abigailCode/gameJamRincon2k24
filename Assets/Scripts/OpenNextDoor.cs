@@ -38,7 +38,7 @@ public class OpenNextDoor : MonoBehaviour {
         int enemiesLeft = _numOfEnemies - _deadEnemies;
         numOfEnemiesText.text = enemiesLeft.ToString();
     }
-    private void OnDeadEnemy() {
+    private void OnDeadEnemy(GameObject enemyObj) {
         _deadEnemies++;
 
         // Actualiza el texto de gemas faltantes
