@@ -34,7 +34,7 @@ public class InvocationHealthController : MonoBehaviour
 
 	void DestroyOnDeath()
 	{
-		gameObject.SetActive(false);
+		gameObject.SetActive( false );
 	}
 
 }
