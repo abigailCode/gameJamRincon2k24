@@ -25,10 +25,12 @@ public class InvocationBehaviour : MonoBehaviour
 		navAgent = gameObject.GetComponent<NavMeshAgent>();
 	}
 
-	void OnEnable() {
+	void OnEnable()
+	{
 		Enemy.OnDeadEnemy += HandleDeadEnemy;
 	}
-	void OnDisable() {
+	void OnDisable()
+	{
 		Enemy.OnDeadEnemy -= HandleDeadEnemy;
 	}
 
@@ -83,7 +85,8 @@ public class InvocationBehaviour : MonoBehaviour
 	#region PRIVATE METHODS
 	void SetTaget()
 	{
-		if(GetAllEnemiesInScene().Length < 1 ){
+		if (GetAllEnemiesInScene().Length < 1)
+		{
 			state = InvocationState.FollowingPlayer;
 		}
 		target = GetCloseEnemy();
@@ -102,39 +105,55 @@ public class InvocationBehaviour : MonoBehaviour
 	{
 		//enemiesInScene = GetAllEnemiesInScene();
 		//Inicializamos la distancia más cercana con un enemigo aleatorio. El primero en la lista.
-		float closestDistance = Vector3.Distance(enemiesInScene[0].transform.position, gameObject.transform.position);
-		GameObject closestEnemy = enemiesInScene[0];
-
-		foreach (GameObject enemy in enemiesInScene)
+		if (enemiesInScene.Length > 0)
 		{
-			// Calcular la distancia entre el jugador y el enemigo actual
-			float distance = Vector3.Distance(enemy.transform.position, gameObject.transform.position);
 
-			// Si la distancia actual es menor que la distancia más cercana encontrada hasta ahora
-			if (distance < closestDistance)
+			float closestDistance = Vector3.Distance(enemiesInScene[0].transform.position, gameObject.transform.position);
+			GameObject closestEnemy = GetAllEnemiesInScene()[0];
+
+			foreach (GameObject enemy in enemiesInScene)
 			{
-				// Actualizar el enemigo más cercano y su distancia
-				closestEnemy = enemy;
-				closestDistance = distance;
+				// Calcular la distancia entre el jugador y el enemigo actual
+				float distance = Vector3.Distance(enemy.transform.position, gameObject.transform.position);
+
+				// Si la distancia actual es menor que la distancia más cercana encontrada hasta ahora
+				if (distance < closestDistance)
+				{
+					// Actualizar el enemigo más cercano y su distancia
+					closestEnemy = enemy;
+					closestDistance = distance;
+				}
 			}
+			return closestEnemy;
 		}
-		return closestEnemy;
+		state = InvocationState.Idle;
+		return null;
 	}
 
 	void ChaseEnemy()
 	{
+		enemiesInScene = GetAllEnemiesInScene();
+		if (!target || !target.activeSelf)
+		{
+			target = null;
+			state = InvocationState.Idle;
+			return;
+		}
 		//Reducir la distancia entre él y el enemigo
 		navAgent.SetDestination(stopPoint);
 		if (gameObject.transform.position == stopPoint)
 			state = InvocationState.Attacking;
 	}
 	//TODO
-	void FollowPlayer() { 
+	void FollowPlayer()
+	{
 		Debug.Log("FOLLOWING PLAYER");
+		navAgent.SetDestination(player.transform.position);
 	}
 
-	void StopMovements() {
-		navAgent.isStopped = true ;
+	void StopMovements()
+	{
+		navAgent.isStopped = true;
 	}
 
 	GameObject[] GetAllEnemiesInScene()
@@ -144,7 +163,8 @@ public class InvocationBehaviour : MonoBehaviour
 		return Array.FindAll(allEnemies, (enemy) => enemy.activeSelf);
 	}
 
-	void HandleDeadEnemy(GameObject enemy){
+	void HandleDeadEnemy(GameObject enemy)
+	{
 		if (target == enemy)
 		{
 			target = null;
