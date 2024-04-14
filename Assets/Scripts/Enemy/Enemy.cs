@@ -117,7 +117,8 @@ public class Enemy : MonoBehaviour {
             if (OnDeadEnemy != null)
                 OnDeadEnemy(this.gameObject);
 
-            Destroy(this.gameObject);
+            this.gameObject.SetActive(false);
+            //Destroy(this.gameObject);
         }
     }
     public bool CheckedIsDead() {
