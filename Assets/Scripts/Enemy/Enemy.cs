@@ -146,6 +146,8 @@ public class Enemy : MonoBehaviour
 		if (CheckedIsDead()) {
             AudioManager.instance.PlaySFX("enemyDeath");
 
+			StopAllCoroutines();
+
             canAttack = false;
 			Debug.Log("muere");
 			//Evento Aumenta la cantidad de Gemas recogidas
