@@ -236,6 +236,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 152173638809601866, guid: f792608e6b1cb0d49ad2c1f4b71330d2, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 152173638809601866, guid: f792608e6b1cb0d49ad2c1f4b71330d2, type: 3}
       propertyPath: m_Color.b
       value: 0.6745098
       objectReference: {fileID: 0}
@@ -258,6 +262,10 @@ PrefabInstance:
     - target: {fileID: 396256135072376021, guid: f792608e6b1cb0d49ad2c1f4b71330d2, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 418274040797678299, guid: f792608e6b1cb0d49ad2c1f4b71330d2, type: 3}
+      propertyPath: m_Sprite
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 418274040797678299, guid: f792608e6b1cb0d49ad2c1f4b71330d2, type: 3}
       propertyPath: m_Color.b
@@ -728,6 +736,22 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2469094886670433229, guid: f792608e6b1cb0d49ad2c1f4b71330d2, type: 3}
+      propertyPath: m_margin.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2469094886670433229, guid: f792608e6b1cb0d49ad2c1f4b71330d2, type: 3}
+      propertyPath: m_margin.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2469094886670433229, guid: f792608e6b1cb0d49ad2c1f4b71330d2, type: 3}
+      propertyPath: m_margin.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2469094886670433229, guid: f792608e6b1cb0d49ad2c1f4b71330d2, type: 3}
+      propertyPath: m_margin.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2469094886670433229, guid: f792608e6b1cb0d49ad2c1f4b71330d2, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: e16853a858f92524596c42c98d69083e, type: 2}
@@ -754,6 +778,10 @@ PrefabInstance:
     - target: {fileID: 2469094886670433229, guid: f792608e6b1cb0d49ad2c1f4b71330d2, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2510879849731484541, guid: f792608e6b1cb0d49ad2c1f4b71330d2, type: 3}
+      propertyPath: m_Sprite
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2510879849731484541, guid: f792608e6b1cb0d49ad2c1f4b71330d2, type: 3}
       propertyPath: m_Color.b
@@ -822,6 +850,10 @@ PrefabInstance:
     - target: {fileID: 2817149431409480861, guid: f792608e6b1cb0d49ad2c1f4b71330d2, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2895456351482065802, guid: f792608e6b1cb0d49ad2c1f4b71330d2, type: 3}
+      propertyPath: m_Sprite
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2895456351482065802, guid: f792608e6b1cb0d49ad2c1f4b71330d2, type: 3}
       propertyPath: m_Color.b
@@ -1634,6 +1666,10 @@ PrefabInstance:
     - target: {fileID: 7019244382040378649, guid: f792608e6b1cb0d49ad2c1f4b71330d2, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -77.20906
+      objectReference: {fileID: 0}
+    - target: {fileID: 7089100078400740046, guid: f792608e6b1cb0d49ad2c1f4b71330d2, type: 3}
+      propertyPath: m_Sprite
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7089100078400740046, guid: f792608e6b1cb0d49ad2c1f4b71330d2, type: 3}
       propertyPath: m_Color.b
@@ -2776,7 +2812,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3766,7 +3802,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
