@@ -230,11 +230,9 @@ MonoBehaviour:
   player: {fileID: 0}
   damagetime: 0.1
   amountOfDamage: 10
-  vidas: 3
   salud: 100
   saludActual: 0
   damageFromPlayer: 10
-  speed: 5
   tocaJugador: 0
 --- !u!195 &1301858289981354231
 NavMeshAgent:
