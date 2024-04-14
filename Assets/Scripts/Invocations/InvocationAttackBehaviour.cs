@@ -9,6 +9,7 @@ public class InvocationAttackBehaviour : MonoBehaviour
 	[SerializeField] InvocationModel invocation;
 
 	//ATTACK
+	int livingTarget = 0;
 	bool canAttack = false;
 	bool cooldownIsActive;
 	float coolDownDuration = 0f;
@@ -29,17 +30,24 @@ public class InvocationAttackBehaviour : MonoBehaviour
 
 	private void Update()
 	{
+		//Si no tienes target y hay enemigos rodeando
+		if (!target && enemiesInAttackArea.Count > 0)
+			ChoseTargetToAttack();
+
 		//Si no hay enemigos en el área y está atacando, deja de atacar:
-		if (canAttack && enemiesInAttackArea.Count < 1)
+		if (canAttack && livingTarget<1)
 		{
 			Debug.Log("TODOS LOS ENEMIGOS EN EL ÁREA DESTRUÍDOS");
+			target = null;
 			canAttack = false;
 			OnDestroyAllEnemiesInAttackArea.Invoke();
 		}
 
-		TryToAttackTarget();
-		if (!target && enemiesInAttackArea.Count > 0)
-			ChoseTargetToAttack();
+		if( canAttack && livingTarget > 0)
+		{
+			TryToAttackTarget();
+		}
+
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -47,6 +55,7 @@ public class InvocationAttackBehaviour : MonoBehaviour
 		if (CheckIfColliderIsEnemy(other))
 		{
 			canAttack = true;
+			livingTarget++;
 			enemiesInAttackArea.Add(other.gameObject);
 			OnEnemyEntryArea.Invoke();
 		}
@@ -56,6 +65,7 @@ public class InvocationAttackBehaviour : MonoBehaviour
 	{
 		if (CheckIfColliderIsEnemy(other))
 		{
+			livingTarget--;
 			enemiesInAttackArea.Remove(other.gameObject);
 			OnEnemyExitArea.Invoke();
 		}
@@ -106,6 +116,7 @@ public class InvocationAttackBehaviour : MonoBehaviour
 	{
 
 		Debug.Log("Attacking");
+		target = enemiesInAttackArea.Find(enemy => enemy.activeSelf);
 		Enemy enemy = target.GetComponent<Enemy>();
 		int currentDamage = (int)Random.Range(invocation.MaxDamage, invocation.MinDamage);
 		enemy.RecibeDano(currentDamage);
@@ -114,6 +125,7 @@ public class InvocationAttackBehaviour : MonoBehaviour
 		//TODO: Check with enemy if he think is dead;
 		if (enemy.saludActual <= 0)
 		{
+			Debug.Log("ENEMIGO MUERTO");
 			HandleDeadEnemy(target);
 			if (enemiesInAttackArea.Count > 0) ChoseTargetToAttack();
 		}
@@ -121,8 +133,12 @@ public class InvocationAttackBehaviour : MonoBehaviour
 
 	GameObject ChoseTargetToAttack()
 	{
+		target = enemiesInAttackArea.Find(enemy => enemy.activeSelf);
+		if(target && !target.activeSelf) target = null;
+		if(target == null) livingTarget = 0;
+		return enemiesInAttackArea.Find(enemy => enemy.activeSelf);
 
-		//Si sólo hay un enemigo en el area -> Ese es el enemigo
+		/* //Si sólo hay un enemigo en el area -> Ese es el enemigo
 		if (enemiesInAttackArea.Count == 1 && enemiesInAttackArea[0].activeSelf)
 		{
 			target = enemiesInAttackArea[0];
@@ -166,7 +182,7 @@ public class InvocationAttackBehaviour : MonoBehaviour
 		}
 		//Como último recurso, ataca al más cercano
 		target = GetClosestEnemy(enemiesInAttackArea);
-		return GetClosestEnemy(enemiesInAttackArea);
+		return GetClosestEnemy(enemiesInAttackArea); */
 	}
 
 	GameObject GetClosestEnemy(List<GameObject> enemies)
@@ -191,9 +207,12 @@ public class InvocationAttackBehaviour : MonoBehaviour
 
 	void HandleDeadEnemy(GameObject enemy)
 	{
+		Debug.Log("Target dead. Lo seteamos a null");
 		target = null;
-		enemiesInAttackArea.Remove(enemy);
+		livingTarget--;
+		//enemiesInAttackArea.Remove(enemy);
 	}
+
 	#endregion
 
 
