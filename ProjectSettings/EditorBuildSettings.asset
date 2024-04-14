@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Test.unity
     guid: e15f80368c464a04c8c04cb3d5143010
   - enabled: 1
+    path: Assets/Scenes/Level1.unity
+    guid: 5b44d476a49d6744281b0d6bf10cde84
+  - enabled: 1
     path: Assets/Scenes/Level2.unity
     guid: feb7e22f26899a94392544e8b642130b
   - enabled: 1
@@ -26,10 +29,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: d3644b2f962bf894dafdb580c6c69849
-  - enabled: 1
-    path: Assets/Scenes/Abi.unity
-    guid: 5b44d476a49d6744281b0d6bf10cde84
-  - enabled: 1
-    path: Assets/Scenes/Settings.unity
-    guid: 5ba2826a3e291d849a5e4de99eaf587c
   m_configObjects: {}

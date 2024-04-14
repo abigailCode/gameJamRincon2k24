@@ -107,22 +107,30 @@ public class InvocationBehaviour : MonoBehaviour
 		//Inicializamos la distancia más cercana con un enemigo aleatorio. El primero en la lista.
 		if (enemiesInScene.Length > 0)
 		{
-
 			GameObject closestEnemy = GetLivingEnemy();
-			float closestDistance = Vector3.Distance(closestEnemy.transform.position, gameObject.transform.position);
-
-			foreach (GameObject enemy in enemiesInScene)
+			try
 			{
-				// Calcular la distancia entre el jugador y el enemigo actual
-				float distance = Vector3.Distance(enemy.transform.position, gameObject.transform.position);
+				Vector3 closestEnemyTranform = closestEnemy.transform.position;
 
-				// Si la distancia actual es menor que la distancia más cercana encontrada hasta ahora
-				if (distance < closestDistance)
+				float closestDistance = Vector3.Distance(closestEnemyTranform, gameObject.transform.position);
+
+				foreach (GameObject enemy in enemiesInScene)
 				{
-					// Actualizar el enemigo más cercano y su distancia
-					closestEnemy = enemy;
-					closestDistance = distance;
+					// Calcular la distancia entre el jugador y el enemigo actual
+					float distance = Vector3.Distance(enemy.transform.position, gameObject.transform.position);
+
+					// Si la distancia actual es menor que la distancia más cercana encontrada hasta ahora
+					if (distance < closestDistance)
+					{
+						// Actualizar el enemigo más cercano y su distancia
+						closestEnemy = enemy;
+						closestDistance = distance;
+					}
 				}
+			}
+			catch (System.Exception)
+			{
+				Debug.Log("Null Reference Excemption. GetCloseEnemy");
 			}
 			return closestEnemy;
 		}
@@ -141,6 +149,7 @@ public class InvocationBehaviour : MonoBehaviour
 		}
 		//Reducir la distancia entre él y el enemigo
 		navAgent.SetDestination(target.transform.position);
+		navAgent.isStopped = false;
 		if (gameObject.transform.position == stopPoint)
 			state = InvocationState.Attacking;
 	}
@@ -177,7 +186,7 @@ public class InvocationBehaviour : MonoBehaviour
 	GameObject GetLivingEnemy()
 	{
 		//return enemiesInScene.Where<GameObject>(enemy => enemy.activeSelf);
-		return Array.Find<GameObject>( enemiesInScene, (enemy) => enemy.activeSelf);
+		return Array.Find<GameObject>(enemiesInScene, (enemy) => enemy.activeSelf);
 	}
 
 	#endregion
