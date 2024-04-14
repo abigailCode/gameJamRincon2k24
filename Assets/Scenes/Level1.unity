@@ -1184,6 +1184,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 997217983357777604, guid: 2bb024a595aa82545b8c632aaa6918f8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.47058824
+      objectReference: {fileID: 0}
     - target: {fileID: 2713784979740317669, guid: 2bb024a595aa82545b8c632aaa6918f8, type: 3}
       propertyPath: m_Name
       value: Canvas Summons
@@ -1267,6 +1271,10 @@ PrefabInstance:
     - target: {fileID: 3503317875483013266, guid: 2bb024a595aa82545b8c632aaa6918f8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6140515644954053056, guid: 2bb024a595aa82545b8c632aaa6918f8, type: 3}
+      propertyPath: m_Color.a
+      value: 0.47058824
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
