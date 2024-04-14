@@ -53,7 +53,7 @@ public class AudioManager : MonoBehaviour
         sfxClips["enemyDeath"] = Resources.Load<AudioClip>("SFX/Muerte1");
         sfxClips["summonAttack"] = Resources.Load<AudioClip>("SFX/Danio");
         sfxClips["enemyAttack"] = Resources.Load<AudioClip>("SFX/Danio");
-        //sfxClips["summonSpawn"] = Resources.Load<AudioClip>("SFX/Muert1");
+        sfxClips["summonSpawn"] = Resources.Load<AudioClip>("SFX/Invocacion");
 
 
     }
