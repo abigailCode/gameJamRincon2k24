@@ -5,7 +5,7 @@ using UnityEngine;
 public class EmenyPool : MonoBehaviour
 {
 
-    public GameObject enemyPrefab;
+    public List<GameObject> enemyPrefabList;
     public GameObject playerPrefab;
     [Header("|----------------Enemy Spawn Area----------------|")]
     public float maximumX;
@@ -26,6 +26,11 @@ public class EmenyPool : MonoBehaviour
 
             Vector3 randomDestination = new Vector3(Random.Range(minimumX, maximumX), 1.08f, Random.Range(minimumZ, maximumZ));
 
+            // Seleccionar un índice aleatorio de la lista
+            int randomIndex = Random.Range(0, enemyPrefabList.Count);
+
+            // Instanciar el objeto en una posición aleatoria
+            Instantiate(enemyPrefabList[randomIndex], randomDestination, Quaternion.identity);
 
             //if (randomDestination.x < playerPrefab.transform.position.x + 10 && randomDestination.x > playerPrefab.transform.position.x - 10)
             //{
@@ -33,7 +38,7 @@ public class EmenyPool : MonoBehaviour
             //}
 
 
-            Instantiate(enemyPrefab, randomDestination, Quaternion.identity);
+            //Instantiate(enemyPrefab, randomDestination, Quaternion.identity);
 
         }
     }

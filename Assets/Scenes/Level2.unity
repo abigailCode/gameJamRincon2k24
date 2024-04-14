@@ -418,7 +418,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98b09eaf31e70e2409db797a8d6fce49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 201760200961071805, guid: acf4b895cbb9ce0428e3c5a1b6101185, type: 3}
+  enemyPrefabList:
+  - {fileID: 201760200961071805, guid: 96b975df3321d9e428ea58f5bdd09d82, type: 3}
+  - {fileID: 201760200961071805, guid: acf4b895cbb9ce0428e3c5a1b6101185, type: 3}
+  - {fileID: 7089973098093807941, guid: 3dc8a28dd8f525e419d3216c3b2eba60, type: 3}
   playerPrefab: {fileID: 645889844}
   maximumX: 219.2
   minimumX: 187.63
@@ -488,6 +491,10 @@ PrefabInstance:
     - target: {fileID: 997217983357777604, guid: 2bb024a595aa82545b8c632aaa6918f8, type: 3}
       propertyPath: m_Color.a
       value: 0.47058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 2692892009119904060, guid: 2bb024a595aa82545b8c632aaa6918f8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2713784979740317669, guid: 2bb024a595aa82545b8c632aaa6918f8, type: 3}
       propertyPath: m_Name
