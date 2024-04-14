@@ -150,4 +150,5 @@ public class Enemy : MonoBehaviour
 		if (saludActual <= 0) return true;
 		else return false;
 	}
+
 }
