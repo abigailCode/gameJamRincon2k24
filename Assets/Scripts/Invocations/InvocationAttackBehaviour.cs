@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class InvocationAttackBehaviour : MonoBehaviour
 {
 	//TODO: Avisar al InvocationBehaviour cuando todos los enemigos están muertos.
-	/*[SerializeField] InvocationModel invocation;
+	[SerializeField] InvocationModel invocation;
 
 	//ATTACK
 	bool canAttack = true;
@@ -20,7 +20,7 @@ public class InvocationAttackBehaviour : MonoBehaviour
 	public UnityEvent OnEnemyStayArea;
 
 	#region UNITY METHODS
-	private void Awake()
+	private void Start()
 	{
 		coolDownDuration = invocation.AttackCoolDown;
 	}
@@ -90,10 +90,12 @@ public class InvocationAttackBehaviour : MonoBehaviour
 	void Attack(GameObject target)
 	{
 
-		float currentDamage = Random.Range(invocation.MaxDamage, invocation.MinDamage);
-		target.GetComponent<EnemyHealth>().SetDamage(currentDamage);
+		Enemy enemy = target.GetComponent<Enemy>();
+		int currentDamage = (int)Random.Range(invocation.MaxDamage, invocation.MinDamage);
+		enemy.RecibeDano(currentDamage);
 
-		if (target.GetComponent<EnemyHealth>().IsDead)
+		//TODO: Check with enemy if he think is dead;
+		if (enemy.saludActual <= 0)
 		{
 			HandleDeadEnemy(target);
 			ChoseTargetToAttack();
@@ -102,6 +104,7 @@ public class InvocationAttackBehaviour : MonoBehaviour
 
 	GameObject ChoseTargetToAttack()
 	{
+		
 		//Si sólo hay un enemigo en el area -> Ese es el enemigo
 		if (enemiesInAttackArea.Count == 1)
 		{
@@ -129,6 +132,7 @@ public class InvocationAttackBehaviour : MonoBehaviour
 			}
 		});
 
+		//TODO: WRONG
 		if (enemiesInAttackArea.Count == 0)
 		{
 			target = GetClosestEnemy(enemiesInAttackArea);
@@ -167,6 +171,5 @@ public class InvocationAttackBehaviour : MonoBehaviour
 		enemiesInAttackArea.Remove(enemy);
 	}
 	#endregion
-	*/
 
 }
