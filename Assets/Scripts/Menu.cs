@@ -6,6 +6,8 @@ public class Menu : MonoBehaviour
 {
     public GameObject CreditsPanel;
     public GameObject SettingsPanel;
+    public GameObject InstructionsPanel;
+
 
     void Start()
     {
@@ -22,6 +24,7 @@ public class Menu : MonoBehaviour
 
     public void StartGame()
     {
+        AudioManager.instance.PlayMusic("game");
         //GameManager.instance.ResetState();
         SceneController.instance.LoadScene("Level1");
     }
@@ -54,5 +57,15 @@ public class Menu : MonoBehaviour
     public void GoToMenu()
     {
         SceneController.instance.LoadScene("Menu");
+    }
+
+    public void ShowInstructions()
+    {
+        InstructionsPanel.SetActive(true);
+    }
+
+    public void HideInstructions()
+    {
+        InstructionsPanel.SetActive(false);
     }
 }
