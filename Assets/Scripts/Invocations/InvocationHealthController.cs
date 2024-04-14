@@ -32,9 +32,9 @@ public class InvocationHealthController : MonoBehaviour
 		}
 	}
 
-	void DestroyOnDeath()
-	{
-		gameObject.SetActive( false );
+	void DestroyOnDeath() {
+        AudioManager.instance.PlaySFX("enemyDeath");
+        gameObject.SetActive( false );
 	}
 
 }

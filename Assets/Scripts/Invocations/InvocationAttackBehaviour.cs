@@ -121,9 +121,10 @@ public class InvocationAttackBehaviour : MonoBehaviour
 		int currentDamage = (int)Random.Range(invocation.MaxDamage, invocation.MinDamage);
 		enemy.RecibeDano(currentDamage);
 		OnAttackEnemy.Invoke();
+        AudioManager.instance.PlaySFX("summonAttack");
 
-		//TODO: Check with enemy if he think is dead;
-		if (enemy.saludActual <= 0)
+        //TODO: Check with enemy if he think is dead;
+        if (enemy.saludActual <= 0)
 		{
 			Debug.Log("ENEMIGO MUERTO");
 			HandleDeadEnemy(target);

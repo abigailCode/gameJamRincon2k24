@@ -30,11 +30,6 @@ public class Enemy : MonoBehaviour
 	public int saludActual;
 	public int damageFromPlayer = 10;
 
-	private void Awake()
-	{
-		//anim = GetComponent<Animator>();
-	}
-
 	void Start()
 	{
 		saludActual = salud;
@@ -117,6 +112,7 @@ public class Enemy : MonoBehaviour
         Debug.Log("DamageToPlayer " + damage);
         while (true) {
             if (canAttack) {
+				AudioManager.instance.PlaySFX("enemyAttack");
                 //Evento hace dano al jugador
                 if (OnDamagePlayer != null)
                     OnDamagePlayer(damage);
@@ -132,6 +128,7 @@ public class Enemy : MonoBehaviour
         Debug.Log("DamageToSummon " + damage);
         while (true) {
             if (canAttackSummon) {
+                AudioManager.instance.PlaySFX("enemyAttack");
                 //Evento hace dano al summon
                 summonCol.GetComponent<InvocationHealthController>().SetDamage(amountOfDamageToSummon);
             }
@@ -146,9 +143,10 @@ public class Enemy : MonoBehaviour
 
     private void DestroyOnDead()
 	{
-		if (CheckedIsDead())
-		{
-			canAttack = false;
+		if (CheckedIsDead()) {
+            AudioManager.instance.PlaySFX("enemyDeath");
+
+            canAttack = false;
 			Debug.Log("muere");
 			//Evento Aumenta la cantidad de Gemas recogidas
 			if (OnDeadEnemy != null)
