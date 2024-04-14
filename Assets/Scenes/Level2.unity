@@ -839,7 +839,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numOfEnemiesText: {fileID: 482291645}
-  Door: {fileID: 0}
+  Door: {fileID: 1895653839}
   _numOfEnemies: 0
   _deadEnemies: 0
 --- !u!4 &515587267
@@ -1597,6 +1597,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ebed4ba944b78e4eb3ecebd9137c0f4, type: 3}
+--- !u!1 &1895653839 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1103739419854308345, guid: 4ebed4ba944b78e4eb3ecebd9137c0f4, type: 3}
+  m_PrefabInstance: {fileID: 1895653838}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1993882171
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -22,15 +22,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 40f00f95fe545904280665148a4e452b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 197.0327
+      value: 200.15552
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 40f00f95fe545904280665148a4e452b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.000015258789
+      value: 0.0000019073486
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 40f00f95fe545904280665148a4e452b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 304.27985
+      value: 301.9503
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 40f00f95fe545904280665148a4e452b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -532,8 +532,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.322281, y: 0.7784394, z: 2.2124023}
-  m_Center: {x: -0.044639587, y: 0.1107803, z: 0.0020751953}
+  m_Size: {x: 1.8, y: 1, z: 2}
+  m_Center: {x: 0.10663697, y: 0.1107803, z: -0.059138536}
 --- !u!95 &5240429920646280488
 Animator:
   serializedVersion: 5
@@ -639,6 +639,22 @@ PrefabInstance:
     - target: {fileID: 1669963077935957503, guid: 6908aa83e5e094b4b96217301370a5a2, type: 3}
       propertyPath: m_TagString
       value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 3109120985254844940, guid: 6908aa83e5e094b4b96217301370a5a2, type: 3}
+      propertyPath: m_Radius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3109120985254844940, guid: 6908aa83e5e094b4b96217301370a5a2, type: 3}
+      propertyPath: m_Center.x
+      value: 0.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 3109120985254844940, guid: 6908aa83e5e094b4b96217301370a5a2, type: 3}
+      propertyPath: m_Center.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3109120985254844940, guid: 6908aa83e5e094b4b96217301370a5a2, type: 3}
+      propertyPath: m_Center.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6206722915508446673, guid: 6908aa83e5e094b4b96217301370a5a2, type: 3}
       propertyPath: invocation
