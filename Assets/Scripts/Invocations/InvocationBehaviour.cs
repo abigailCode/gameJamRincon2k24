@@ -157,7 +157,8 @@ public class InvocationBehaviour : MonoBehaviour
 	void FollowPlayer()
 	{
 		Debug.Log("FOLLOWING PLAYER");
-		navAgent.SetDestination(player.transform.position);
+		navAgent.isStopped = false;
+		navAgent.SetDestination(player.transform.position * .5f);
 	}
 
 	void StopMovements()

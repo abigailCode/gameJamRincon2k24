@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Invocation_Hard
   m_EditorClassIdentifier: 
   invocationName: Hard
-  maxHealth: 100
+  maxHealth: 500
   manaCost: 25
   invocationCooldown: 10
   maxDamage: 100
   minDamage: 50
   attackRange: 10
   cooldownAttack: 0.5
-  movementSpeed: 10
+  movementSpeed: 12
