@@ -5,12 +5,9 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour {
     public Transform player;
-    
-    private Rigidbody rb;
-    private Collider collider;
 
     //EVENTO (DELEGADO)   --> Avisa de que un enemigo ha muerto
-    public delegate void DeadEnemy();
+    public delegate void DeadEnemy(GameObject enemyObj);
     public static event DeadEnemy OnDeadEnemy;  //(EVENTO)
     //EVENTO (DELEGADO)   --> Avisa para hacer dano al player
     public delegate void damagePlayer(float damage);
@@ -18,9 +15,9 @@ public class Enemy : MonoBehaviour {
 
     [Header("Damage")]
     [SerializeField] float damagetime = 0.1f;
-    [SerializeField] float amountOfDamage = 10f;
+    [SerializeField] float amountOfDamageToPlayer = 10f;
+    [SerializeField] float amountOfDamageToSummon = 10f;
     private bool canAttack;
-    private bool canGetDamage;
 
     private NavMeshAgent navMeshAgent;
     private float closestDistance;
@@ -30,87 +27,42 @@ public class Enemy : MonoBehaviour {
     public int salud = 100;
     public int saludActual;
     public int damageFromPlayer = 10;
-    public float speed = 5f;
-
-    [Header("Booleanos")]
-    public bool tocaJugador;
-    private bool puedeDanar = true;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
-        collider = GetComponent<Collider>();
         //anim = GetComponent<Animator>();
     }
 
     void Start() {
         saludActual = salud;
-        tocaJugador = false;
         navMeshAgent = GetComponent<NavMeshAgent>();
 
         canAttack = true;
-        canGetDamage = true;
     }
 
 
     void Update() {
-        /*float distanciaEnemyPlayer = Vector3.Distance(transform.position, player.position);
-
-        GameObject playerObject = GameObject.FindWithTag("Player");
-        if (playerObject != null)
-        {
-            Transform playerTransform = playerObject.transform;
-            Vector3 direction = playerTransform.position - transform.position;
-            direction.Normalize();
-            transform.position += direction * speed * Time.deltaTime;
-        }
-        else
-        {
-            Debug.LogWarning("No se encontró al jugador en la escena.");
-        }*/
         SetNavDestination();
+
+        // Comprueba si se ha muerto
+        DestroyOnDead();
     }
 
     private void OnTriggerEnter(Collider other) {
-        StartCoroutine(RecibirDano());
+        if (other.CompareTag("Summon"))
+            other.GetComponent<InvocationHealthController>().SetDamage(amountOfDamageToSummon);
 
-        StartCoroutine(DamageToPlayer(amountOfDamage));
+        if (other.CompareTag("Player"))
+            StartCoroutine(DamageToPlayer(amountOfDamageToPlayer));
     }
 
     private void OnTriggerExit(Collider other) {
-        StopCoroutine(RecibirDano());
-
-        StopCoroutine(DamageToPlayer(amountOfDamage));
+        StopCoroutine(DamageToPlayer(amountOfDamageToPlayer));
     }
-    /*private void OnTriggerStay(Collider collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            StartCoroutine(RecibirDano());
-            tocaJugador = true;
-            /*Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-
-            if (enemy != null)
-            {
-                RecibeDano(damageFromPlayer);
-            }*/
-
-            /*StartCoroutine(DamageToPlayer(amountOfDamage));
-        }
-        else
-        {
-            tocaJugador = false;
-        }
-    }*/
 
     public void RecibeDano(int dano)
     {
         saludActual -= dano;
-
-        if (saludActual <= 0)
-        {
-            Morir();
-        }
     }
 
     private void SetNavDestination() {
@@ -142,33 +94,6 @@ public class Enemy : MonoBehaviour {
         }
     }
 
-    private void Morir()
-    {
-        if (saludActual <= 0)
-        {
-            speed = 0;
-            rb.velocity = Vector2.zero;
-
-            //Evento Aumenta la cantidad de Gemas recogidas
-            if (OnDeadEnemy != null)
-                OnDeadEnemy();
-
-            Destroy(this.gameObject, 0.2f);
-        }
-    }
-
-    IEnumerator RecibirDano() {
-        while (true) {
-            if (canGetDamage)
-                RecibeDano(damageFromPlayer);
-
-            canGetDamage = false;
-            yield return new WaitForSeconds(damagetime);
-            canGetDamage = true;
-        }
-        
-    }
-
     IEnumerator DamageToPlayer(float damage) {
         Debug.Log("DamageToPlayer " + damage);
         while (true) {
@@ -185,6 +110,16 @@ public class Enemy : MonoBehaviour {
         }        
     }
 
+    private void DestroyOnDead() {
+        if (CheckedIsDead()) {
+            Debug.Log("muere");
+            //Evento Aumenta la cantidad de Gemas recogidas
+            if (OnDeadEnemy != null)
+                OnDeadEnemy(this.gameObject);
+
+            Destroy(this.gameObject);
+        }
+    }
     public bool CheckedIsDead() {
         if (saludActual <= 0) return true;
         else return false;

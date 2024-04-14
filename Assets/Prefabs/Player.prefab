@@ -205,6 +205,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  imageDeactivatedList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   minDistance: 2
   maxDistance: 5
   yOffset: 1
@@ -237,7 +241,10 @@ MonoBehaviour:
   maxLife: 100
   mana: 100
   maxMana: 100
-  invocationMana1: 0
+  HPBar: {fileID: 0}
+  MPBar: {fileID: 0}
+  timeChargeMana: 1
+  chargeManaAmount: 5
 --- !u!1 &5359856058176236906
 GameObject:
   m_ObjectHideFlags: 0

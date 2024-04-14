@@ -8,6 +8,7 @@ public class PlayerSummon : MonoBehaviour {
     [SerializeField] List<KeyCode> summonKeyBoard;
     [SerializeField] List<GameObject> summon;
     [SerializeField] List<Image> imageList;
+    [SerializeField] List<Image> imageDeactivatedList;
 
     [Header("Instance Distance")]
     [SerializeField] float minDistance = 2f;    // Distancia mínima desde el jugador
@@ -75,14 +76,14 @@ public class PlayerSummon : MonoBehaviour {
 
     IEnumerator SummonCooldown(int index) {
         // Oculta la imagen indicadora de spawn correspondiente
-        imageList[index].gameObject.SetActive(false);
+        //imageList[index].gameObject.SetActive(false);
 
         summonOnCooldown[index] = true;
         yield return new WaitForSeconds(summonCooldowns[index]);
         summonOnCooldown[index] = false;
 
         // Activa la imagen indicadora de spawn correspondiente
-        imageList[index].gameObject.SetActive(true);
+        //imageList[index].gameObject.SetActive(true);
     }
 
     private void CheckAndInstance(int numList) {
@@ -94,7 +95,17 @@ public class PlayerSummon : MonoBehaviour {
     }
 
     private void ShownHideImageSummon() {
-        foreach (Image img in imageList) {
+        for (int i = 0; i < imageList.Count; i++) {
+            if (manaObj.getMana() >= manaCost[i] && !summonOnCooldown[i]) {
+                imageList[i].gameObject.SetActive(true);
+                imageDeactivatedList[i].gameObject.SetActive(false);
+            }
+            else {
+                imageList[i].gameObject.SetActive(false);
+                imageDeactivatedList[i].gameObject.SetActive(true);
+            }
+        }
+        /*foreach (Image img in imageList) {
             int index = imageList.IndexOf(img);
             if (manaObj.getMana() >= manaCost[index] && !summonOnCooldown[index]) {
                 img.gameObject.SetActive(true);
@@ -102,6 +113,6 @@ public class PlayerSummon : MonoBehaviour {
             else {
                 img.gameObject.SetActive(false);
             }
-        }
+        }*/
     }
 }
