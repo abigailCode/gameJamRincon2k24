@@ -1125,17 +1125,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1015711234}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1171314581 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5130674029770380785, guid: 2bb024a595aa82545b8c632aaa6918f8, type: 3}
-  m_PrefabInstance: {fileID: 1624939653}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1188299653 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5877865906997179896, guid: 502dfde351de317478bb982119070135, type: 3}
@@ -1172,7 +1161,7 @@ PrefabInstance:
     - target: {fileID: 1255661201575815316, guid: a9a3377d67cd4a24a9ddc98b2d45b231, type: 3}
       propertyPath: imageList.Array.data[0]
       value: 
-      objectReference: {fileID: 1171314581}
+      objectReference: {fileID: 0}
     - target: {fileID: 1255661201575815316, guid: a9a3377d67cd4a24a9ddc98b2d45b231, type: 3}
       propertyPath: imageList.Array.data[1]
       value: 
@@ -1243,6 +1232,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 734165259012930599, guid: 2bb024a595aa82545b8c632aaa6918f8, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e16853a858f92524596c42c98d69083e, type: 2}
+    - target: {fileID: 734165259012930599, guid: 2bb024a595aa82545b8c632aaa6918f8, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -8893287178200258138, guid: e16853a858f92524596c42c98d69083e, type: 2}
+    - target: {fileID: 734165259012930599, guid: 2bb024a595aa82545b8c632aaa6918f8, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1336816810679838880, guid: 2bb024a595aa82545b8c632aaa6918f8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -10
+      objectReference: {fileID: 0}
     - target: {fileID: 2713784979740317669, guid: 2bb024a595aa82545b8c632aaa6918f8, type: 3}
       propertyPath: m_Name
       value: Canvas Summons
