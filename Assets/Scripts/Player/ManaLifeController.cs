@@ -29,11 +29,13 @@ public float life = 100;
 
     //SUSCRIPCIÓN al EVENTO
     void OnEnable() {
-    //    Enemy.OnDoDamage += TakeDamage;
+        //Enemy.OnDoDamage += TakeDamage;
+        Enemy.OnDamagePlayer += TakeDamage;
     }
     //DESUSCRIPCIÓN al EVENTO
     void OnDisable() {
-    //    Enemy.OnDoDamage -= TakeDamage;
+        //Enemy.OnDoDamage -= TakeDamage;
+        Enemy.OnDamagePlayer -= TakeDamage;
     }
 
 
