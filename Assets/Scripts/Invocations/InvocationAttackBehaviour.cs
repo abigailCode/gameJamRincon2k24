@@ -15,6 +15,7 @@ public class InvocationAttackBehaviour : MonoBehaviour
 	readonly List<GameObject> enemiesInAttackArea = new();
 	GameObject target;
 
+	public UnityEvent OnAttackEnemy;
 	public UnityEvent OnEnemyEntryArea;
 	public UnityEvent OnEnemyExitArea;
 	public UnityEvent OnEnemyStayArea;
@@ -34,7 +35,6 @@ public class InvocationAttackBehaviour : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		Debug.Log("TRIGGER ENTER");
 		if (other.CompareTag("Enemy"))
 		{
 			enemiesInAttackArea.Add(other.gameObject);
@@ -53,7 +53,6 @@ public class InvocationAttackBehaviour : MonoBehaviour
 
 	private void OnTriggerStay(Collider other)
 	{
-		//if (other.CompareTag("Enemy")) StartCoroutine(TryToAttack(other.gameObject));
 		if (other.CompareTag("Enemy"))
 			OnEnemyStayArea.Invoke();
 
@@ -90,9 +89,11 @@ public class InvocationAttackBehaviour : MonoBehaviour
 	void Attack(GameObject target)
 	{
 
+		Debug.Log("Attacking");
 		Enemy enemy = target.GetComponent<Enemy>();
 		int currentDamage = (int)Random.Range(invocation.MaxDamage, invocation.MinDamage);
 		enemy.RecibeDano(currentDamage);
+		OnAttackEnemy.Invoke();
 
 		//TODO: Check with enemy if he think is dead;
 		if (enemy.saludActual <= 0)
@@ -171,5 +172,9 @@ public class InvocationAttackBehaviour : MonoBehaviour
 		enemiesInAttackArea.Remove(enemy);
 	}
 	#endregion
+
+	public void Test(){
+		Debug.Log("WORKING");
+	}
 
 }
