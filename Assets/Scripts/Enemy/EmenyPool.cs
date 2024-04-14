@@ -12,7 +12,7 @@ public class EmenyPool : MonoBehaviour
     public float minimumX;
     public float maximumZ;
     public float minimumZ;
-    public int enemyCount = 5;
+    public int enemyCount = 20;
     // Start is called before the first frame update
     void Start()
     {
