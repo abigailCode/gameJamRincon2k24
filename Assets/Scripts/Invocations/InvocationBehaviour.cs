@@ -61,6 +61,12 @@ public class InvocationBehaviour : MonoBehaviour
 		this.target = target;
 	}
 
+	
+	public void SetDead()
+	{
+		state = InvocationState.Dead;
+	}
+
 	#endregion
 
 	#region PRIVATE METHODS
@@ -111,7 +117,6 @@ public class InvocationBehaviour : MonoBehaviour
 	}
 	void FollowPlayer() { }
 
-	void Dead() { }
 
 	#endregion
 }
