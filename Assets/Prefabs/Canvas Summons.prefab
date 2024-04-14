@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 7235686031121944866}
   - component: {fileID: 4580439795040953731}
   m_Layer: 5
-  m_Name: Summon-2 (1)
+  m_Name: Summon-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -871,8 +871,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3790348400555128886}
   - {fileID: 6987087485580916976}
+  - {fileID: 3790348400555128886}
   - {fileID: 1946324248260327110}
   m_Father: {fileID: 3503317875483013266}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
