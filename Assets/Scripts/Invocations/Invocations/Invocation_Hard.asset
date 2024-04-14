@@ -18,6 +18,6 @@ MonoBehaviour:
   invocationCooldown: 10
   maxDamage: 100
   minDamage: 50
-  attackRange: 1
+  attackRange: 10
   cooldownAttack: 0.5
   movementSpeed: 10
