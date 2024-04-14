@@ -184,8 +184,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 28.2, y: -1.16}
-  m_SizeDelta: {x: 477, y: 17}
+  m_AnchoredPosition: {x: 40, y: -1.9}
+  m_SizeDelta: {x: 466, y: 18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &896706488771726733
 CanvasRenderer:
@@ -541,7 +541,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 307.8867, y: -61.077637}
-  m_SizeDelta: {x: 562, y: 62}
+  m_SizeDelta: {x: 567, y: 81}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8484052805147150828
 CanvasRenderer:
@@ -571,7 +571,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 663f06ee70bee6d4e856eb938f47370e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 952e7ed6509bc574d84d8c5204e18648, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1043,7 +1043,7 @@ GameObject:
   - component: {fileID: 513722788504345055}
   - component: {fileID: 2957015870875718122}
   m_Layer: 5
-  m_Name: Image
+  m_Name: EnemyIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1096,7 +1096,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1ec2b33598de8714bbfefdc20a953c52, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c791c93de35f44c4bb4f3e09b2c9b4f7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1141,8 +1141,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -307.8869, y: -60.97757}
-  m_SizeDelta: {x: 562, y: 62}
+  m_AnchoredPosition: {x: -307.8869, y: -59}
+  m_SizeDelta: {x: 549, y: 84}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1330930231994192837
 CanvasRenderer:
@@ -1172,7 +1172,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 663f06ee70bee6d4e856eb938f47370e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 28f5e9da4e04a934480748658c62be2a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1291,8 +1291,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 28.2, y: -1.16}
-  m_SizeDelta: {x: 477, y: 17}
+  m_AnchoredPosition: {x: 31.1, y: -7.3592}
+  m_SizeDelta: {x: 464.4123, y: 17.4512}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4380020766659443427
 CanvasRenderer:
