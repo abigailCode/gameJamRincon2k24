@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.ShortcutManagement;
 using UnityEngine;
 using UnityEngine.AI;
@@ -23,10 +25,17 @@ public class InvocationBehaviour : MonoBehaviour
 		navAgent = gameObject.GetComponent<NavMeshAgent>();
 	}
 
+	void OnEnable() {
+		Enemy.OnDeadEnemy += HandleDeadEnemy;
+	}
+	void OnDisable() {
+		Enemy.OnDeadEnemy -= HandleDeadEnemy;
+	}
+
 	private void Start()
 	{
 		navAgent.speed = invocation.MovementSpeed;
-		enemiesInScene = GameObject.FindGameObjectsWithTag("Enemy");
+		enemiesInScene = GetAllEnemiesInScene();
 		player = GameObject.FindGameObjectWithTag("Player");
 		SetTaget();
 	}
@@ -46,7 +55,7 @@ public class InvocationBehaviour : MonoBehaviour
 				FollowPlayer();
 				break;
 			case InvocationState.Attacking:
-				//TODO
+				StopMovements();
 				break;
 			case InvocationState.Dead:
 			default:
@@ -61,7 +70,9 @@ public class InvocationBehaviour : MonoBehaviour
 		this.target = target;
 	}
 
-	
+	public void SetAttackEnd() => state = InvocationState.Idle;
+
+	public void SetOnAttack() => state = InvocationState.Attacking;
 	public void SetDead()
 	{
 		state = InvocationState.Dead;
@@ -72,6 +83,9 @@ public class InvocationBehaviour : MonoBehaviour
 	#region PRIVATE METHODS
 	void SetTaget()
 	{
+		if(GetAllEnemiesInScene().Length < 1 ){
+			state = InvocationState.FollowingPlayer;
+		}
 		target = GetCloseEnemy();
 		state = InvocationState.ChasingEnemy;
 
@@ -86,7 +100,7 @@ public class InvocationBehaviour : MonoBehaviour
 	}
 	GameObject GetCloseEnemy()
 	{
-		//TODO: SI TODOS LOS ENEMIGOS ESTÁN MUERTOS (NO HAY ENEMIGOS) NO HACER ESTO
+		//enemiesInScene = GetAllEnemiesInScene();
 		//Inicializamos la distancia más cercana con un enemigo aleatorio. El primero en la lista.
 		float closestDistance = Vector3.Distance(enemiesInScene[0].transform.position, gameObject.transform.position);
 		GameObject closestEnemy = enemiesInScene[0];
@@ -113,10 +127,31 @@ public class InvocationBehaviour : MonoBehaviour
 		navAgent.SetDestination(stopPoint);
 		if (gameObject.transform.position == stopPoint)
 			state = InvocationState.Attacking;
-
 	}
-	void FollowPlayer() { }
+	//TODO
+	void FollowPlayer() { 
+		Debug.Log("FOLLOWING PLAYER");
+	}
 
+	void StopMovements() {
+		navAgent.isStopped = true ;
+	}
+
+	GameObject[] GetAllEnemiesInScene()
+	{
+		GameObject[] allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+		return Array.FindAll(allEnemies, (enemy) => enemy.activeSelf);
+	}
+
+	void HandleDeadEnemy(GameObject enemy){
+		if (target == enemy)
+		{
+			target = null;
+			state = InvocationState.Idle;
+		}
+		enemiesInScene = Array.FindAll(enemiesInScene, (enemy) => enemy.activeSelf);
+	}
 
 	#endregion
 }
