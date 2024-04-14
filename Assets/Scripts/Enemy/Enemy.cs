@@ -64,9 +64,10 @@ public class Enemy : MonoBehaviour
 		}
 	}
 
-	private void OnTriggerExit(Collider other)
-	{
-		StopCoroutine(DamageToPlayer(amountOfDamageToPlayer));
+	private void OnTriggerExit(Collider other) {
+        StopCoroutine(DamageToSummon(other, amountOfDamageToSummon));
+
+        StopCoroutine(DamageToPlayer(amountOfDamageToPlayer));
 	}
 
 	public void RecibeDano(int dano)
@@ -134,6 +135,8 @@ public class Enemy : MonoBehaviour
                 //Evento hace dano al summon
                 summonCol.GetComponent<InvocationHealthController>().SetDamage(amountOfDamageToSummon);
             }
+			if (!summonCol.gameObject.activeSelf)
+                StopCoroutine(DamageToSummon(summonCol, damage));
 
             canAttackSummon = false;
             yield return new WaitForSeconds(damagetime);
