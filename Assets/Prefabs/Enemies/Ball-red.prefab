@@ -596,7 +596,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  damagetime: 0.1
+  damagetime: 1
   amountOfDamageToPlayer: 10
   amountOfDamageToSummon: 10
   salud: 100
