@@ -997,6 +997,14 @@ PrefabInstance:
       propertyPath: MPBar
       value: 
       objectReference: {fileID: 2123343829}
+    - target: {fileID: 96887533152643228, guid: a9a3377d67cd4a24a9ddc98b2d45b231, type: 3}
+      propertyPath: nextLevel
+      value: Level2
+      objectReference: {fileID: 0}
+    - target: {fileID: 96887533152643228, guid: a9a3377d67cd4a24a9ddc98b2d45b231, type: 3}
+      propertyPath: timePlayerDead
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1255661201575815316, guid: a9a3377d67cd4a24a9ddc98b2d45b231, type: 3}
       propertyPath: imageList.Array.data[0]
       value: 
