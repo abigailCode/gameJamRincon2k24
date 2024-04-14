@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 357817511694572766}
   - component: {fileID: 3348090741798089878}
   m_Layer: 0
-  m_Name: Summoned_Basic
+  m_Name: Summon_hard-test
   m_TagString: Summon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

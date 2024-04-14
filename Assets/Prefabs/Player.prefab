@@ -145,8 +145,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   summonKeyBoard: 010100000201000003010000
   summon:
-  - {fileID: 7279481241280499133, guid: 3485af5a161908c49a011bca6b709ffd, type: 3}
-  - {fileID: 7279481241280499133, guid: 3485af5a161908c49a011bca6b709ffd, type: 3}
+  - {fileID: 8364556407843702694, guid: b2bb7b1634456524fb0d97bc3e663042, type: 3}
+  - {fileID: 1173133310149688033, guid: 518f84c6a55f2bb4a8fabbae142ff559, type: 3}
   - {fileID: 7279481241280499133, guid: 3485af5a161908c49a011bca6b709ffd, type: 3}
   imageList:
   - {fileID: 0}
