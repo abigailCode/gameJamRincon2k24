@@ -418,8 +418,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98b09eaf31e70e2409db797a8d6fce49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 4906179109713758303, guid: a60e96d7940306849a626c37efc02943, type: 3}
-  playerPrefab: {fileID: 0}
+  enemyPrefab: {fileID: 201760200961071805, guid: acf4b895cbb9ce0428e3c5a1b6101185, type: 3}
+  playerPrefab: {fileID: 645889844}
   maximumX: 219.2
   minimumX: 187.63
   maximumZ: 310
@@ -939,6 +939,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 553d3530a6618eb499829205d2cc1db4, type: 3}
+--- !u!1 &645889844 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 377225392350503564, guid: 553d3530a6618eb499829205d2cc1db4, type: 3}
+  m_PrefabInstance: {fileID: 645889843}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
