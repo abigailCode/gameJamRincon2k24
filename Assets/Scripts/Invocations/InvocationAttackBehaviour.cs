@@ -53,7 +53,7 @@ public class InvocationAttackBehaviour : MonoBehaviour
 
 	private void OnTriggerStay(Collider other)
 	{
-		if (other.CompareTag("Enemy"))
+		if (CheckIfColliderIsEnemy(other))
 			OnEnemyStayArea.Invoke();
 
 	}
@@ -70,6 +70,12 @@ public class InvocationAttackBehaviour : MonoBehaviour
 	#endregion
 
 	#region PRIVATE METHODS
+
+	bool CheckIfColliderIsEnemy(Collider other)
+	{
+		//El otro es un enemigo y está vivo y coleando
+		return other.CompareTag("Enemy"); //&& !other.GetComponent<Enemy>().GetIsDead();
+	}
 	IEnumerator StartCooldown()
 	{
 		cooldownIsActive = true;
@@ -99,7 +105,7 @@ public class InvocationAttackBehaviour : MonoBehaviour
 		if (enemy.saludActual <= 0)
 		{
 			HandleDeadEnemy(target);
-			ChoseTargetToAttack();
+			if(enemiesInAttackArea.Count > 0) ChoseTargetToAttack();
 		}
 	}
 
@@ -133,20 +139,21 @@ public class InvocationAttackBehaviour : MonoBehaviour
 			}
 		});
 
-		//TODO: WRONG
-		if (enemiesInAttackArea.Count == 0)
+		//Si sólo hay un enemigo débil, atácalo
+		if (weakEnemies.Count == 1)
 		{
-			target = GetClosestEnemy(enemiesInAttackArea);
-			return GetClosestEnemy(enemiesInAttackArea);
+			target = weakEnemies[0];
+			return weakEnemies[0];
 		}
-		if (enemiesInAttackArea.Count == 1)
+		//Si hay más de un enemigo con la misma vida, ataca al más cercano
+		if (weakEnemies.Count > 1)
 		{
-			target = enemiesInAttackArea[0];
-			return enemiesInAttackArea[0];
+			target = GetClosestEnemy(weakEnemies);
+			return GetClosestEnemy(weakEnemies);
 		}
-
-		target = GetClosestEnemy(weakEnemies);
-		return GetClosestEnemy(weakEnemies);
+		//Como último recurso, ataca al más cercano
+		target = GetClosestEnemy(enemiesInAttackArea);
+		return GetClosestEnemy(enemiesInAttackArea);
 	}
 
 	GameObject GetClosestEnemy(List<GameObject> enemies)
@@ -173,8 +180,5 @@ public class InvocationAttackBehaviour : MonoBehaviour
 	}
 	#endregion
 
-	public void Test(){
-		Debug.Log("WORKING");
-	}
 
 }
