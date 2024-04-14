@@ -30,7 +30,7 @@ public class InvocationAttackBehaviour : MonoBehaviour
 	private void Update()
 	{
 		//Si no hay enemigos en el área y está atacando, deja de atacar:
-		if(canAttack && enemiesInAttackArea.Count < 1)
+		if (canAttack && enemiesInAttackArea.Count < 1)
 		{
 			Debug.Log("TODOS LOS ENEMIGOS EN EL ÁREA DESTRUÍDOS");
 			canAttack = false;
@@ -95,7 +95,7 @@ public class InvocationAttackBehaviour : MonoBehaviour
 	}
 	void TryToAttackTarget()
 	{
-		if (target && canAttack && !cooldownIsActive)
+		if (target && target.activeSelf && canAttack && !cooldownIsActive)
 		{
 			StartCoroutine(StartCooldown());
 			Attack(target);
@@ -115,7 +115,7 @@ public class InvocationAttackBehaviour : MonoBehaviour
 		if (enemy.saludActual <= 0)
 		{
 			HandleDeadEnemy(target);
-			if(enemiesInAttackArea.Count > 0) ChoseTargetToAttack();
+			if (enemiesInAttackArea.Count > 0) ChoseTargetToAttack();
 		}
 	}
 
@@ -123,7 +123,7 @@ public class InvocationAttackBehaviour : MonoBehaviour
 	{
 
 		//Si sólo hay un enemigo en el area -> Ese es el enemigo
-		if (enemiesInAttackArea.Count == 1)
+		if (enemiesInAttackArea.Count == 1 && enemiesInAttackArea[0].activeSelf)
 		{
 			target = enemiesInAttackArea[0];
 			return enemiesInAttackArea[0];
@@ -137,20 +137,23 @@ public class InvocationAttackBehaviour : MonoBehaviour
 
 		enemiesInAttackArea.ForEach(enemy =>
 		{
-			float enemyHealth = enemy.GetComponent<EnemyHealth>().Health;
-			if (enemyHealth < lowestHealth)
+			if (enemy.activeSelf)
 			{
-				weakEnemies.Clear();
-				weakEnemies.Add(enemy);
-			}
-			else if (enemyHealth == lowestHealth)
-			{
-				weakEnemies.Add(enemy);
+				float enemyHealth = enemy.GetComponent<EnemyHealth>().Health;
+				if (enemyHealth < lowestHealth)
+				{
+					weakEnemies.Clear();
+					weakEnemies.Add(enemy);
+				}
+				else if (enemyHealth == lowestHealth)
+				{
+					weakEnemies.Add(enemy);
+				}
 			}
 		});
 
 		//Si sólo hay un enemigo débil, atácalo
-		if (weakEnemies.Count == 1)
+		if (weakEnemies.Count == 1 && weakEnemies[0].activeSelf)
 		{
 			target = weakEnemies[0];
 			return weakEnemies[0];
@@ -174,10 +177,13 @@ public class InvocationAttackBehaviour : MonoBehaviour
 
 		enemies.ForEach(enemy =>
 		{
-			float enemyDistance = Vector3.Distance(enemy.transform.position, currentPosition);
-			if (enemyDistance < lowerDistance)
-				lowerDistance = enemyDistance;
-			closestEnemy = enemy;
+			if (enemy.activeSelf)
+			{
+				float enemyDistance = Vector3.Distance(enemy.transform.position, currentPosition);
+				if (enemyDistance < lowerDistance)
+					lowerDistance = enemyDistance;
+				closestEnemy = enemy;
+			}
 		});
 
 		return closestEnemy;

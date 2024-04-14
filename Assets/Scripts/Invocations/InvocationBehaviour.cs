@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor.ShortcutManagement;
 using UnityEngine;
@@ -103,13 +104,12 @@ public class InvocationBehaviour : MonoBehaviour
 	}
 	GameObject GetCloseEnemy()
 	{
-		//enemiesInScene = GetAllEnemiesInScene();
 		//Inicializamos la distancia más cercana con un enemigo aleatorio. El primero en la lista.
 		if (enemiesInScene.Length > 0)
 		{
 
-			float closestDistance = Vector3.Distance(enemiesInScene[0].transform.position, gameObject.transform.position);
-			GameObject closestEnemy = GetAllEnemiesInScene()[0];
+			GameObject closestEnemy = GetLivingEnemy();
+			float closestDistance = Vector3.Distance(closestEnemy.transform.position, gameObject.transform.position);
 
 			foreach (GameObject enemy in enemiesInScene)
 			{
@@ -140,7 +140,7 @@ public class InvocationBehaviour : MonoBehaviour
 			return;
 		}
 		//Reducir la distancia entre él y el enemigo
-		navAgent.SetDestination(stopPoint);
+		navAgent.SetDestination(target.transform.position);
 		if (gameObject.transform.position == stopPoint)
 			state = InvocationState.Attacking;
 	}
@@ -159,8 +159,9 @@ public class InvocationBehaviour : MonoBehaviour
 	GameObject[] GetAllEnemiesInScene()
 	{
 		GameObject[] allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+		return GameObject.FindGameObjectsWithTag("Enemy");
 
-		return Array.FindAll(allEnemies, (enemy) => enemy.activeSelf);
+		//return Array.FindAll(allEnemies, (enemy) => enemy.activeSelf);
 	}
 
 	void HandleDeadEnemy(GameObject enemy)
@@ -170,7 +171,13 @@ public class InvocationBehaviour : MonoBehaviour
 			target = null;
 			state = InvocationState.Idle;
 		}
-		enemiesInScene = Array.FindAll(enemiesInScene, (enemy) => enemy.activeSelf);
+		//enemiesInScene = Array.FindAll(enemiesInScene, (enemy) => enemy.activeSelf);
+	}
+
+	GameObject GetLivingEnemy()
+	{
+		//return enemiesInScene.Where<GameObject>(enemy => enemy.activeSelf);
+		return Array.Find<GameObject>( enemiesInScene, (enemy) => enemy.activeSelf);
 	}
 
 	#endregion
