@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 2890425588928206870}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.224, z: 0.599}
+  m_LocalPosition: {x: 0, y: 0.224, z: 0.599}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 6832338664438974147}
   - component: {fileID: 511149017307241726}
   - component: {fileID: 1255661201575815316}
+  - component: {fileID: 96887533152643228}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -195,6 +196,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5c2c0847c5f02a49a433fb30460a7fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  summonKeyBoard: 010100000201000003010000
+  summon:
+  - {fileID: 8952481231916053092, guid: 0fe864b1b14cff34eb66452398c7fab3, type: 3}
+  - {fileID: 5150075014564983169, guid: 0516700763995734ead2b7d00feb63d3, type: 3}
+  - {fileID: 2737408762788553174, guid: 79323996265bcab4e8dc01341dbc8251, type: 3}
+  imageList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  minDistance: 2
+  maxDistance: 5
+  yOffset: 1
+  summonCooldowns:
+  - 2
+  - 4
+  - 8
+  manaObj: {fileID: 0}
+  manaCost:
+  - 10
+  - 20
+  - 40
+  maximumX: 219.2
+  minimumX: 187.63
+  maximumZ: 310
+  minimumZ: 296
+--- !u!114 &96887533152643228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4664745092271979582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ed066bd1a404fd4b8f68fa302d95906, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  life: 100
+  maxLife: 100
+  mana: 100
+  maxMana: 100
+  invocationMana1: 0
 --- !u!1 &5359856058176236906
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,7 +296,7 @@ Transform:
   m_GameObject: {fileID: 6609709354064400036}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -335,7 +378,7 @@ Transform:
   m_GameObject: {fileID: 7482997435706280931}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
