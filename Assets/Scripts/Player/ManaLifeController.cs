@@ -89,20 +89,12 @@ public class ManaLifeController : MonoBehaviour {
 
         while (elapsedTime < 5f) {
             // Interpola entre la rotación inicial y final para crear una animación de muerte suave
-            //transform.rotation = Quaternion.Lerp(startRotation, endRotation, elapsedTime);
-            //elapsedTime += Time.deltaTime * deathRotationSpeed;
-
-            
-            // Rotar el objeto constantemente en el eje Y
-            //transform.Rotate(Vector3.up, deathRotationSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Lerp(startRotation, endRotation, elapsedTime);
+            elapsedTime += Time.deltaTime * deathRotationSpeed;
         }
     }
 
     IEnumerator WaitDeadAndGameOver() {
-        // Rotar el objeto constantemente en el eje Y
-        //transform.Rotate(Vector3.up, deathRotationSpeed * Time.deltaTime);
-
-
         // Desactiva el control del jugador
         PlayerController playerController = GetComponent<PlayerController>();
         playerController.enabled = false;
