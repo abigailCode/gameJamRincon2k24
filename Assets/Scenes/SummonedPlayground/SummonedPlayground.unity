@@ -257,26 +257,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1165136098083061290, guid: 3485af5a161908c49a011bca6b709ffd, type: 3}
-      propertyPath: m_TagString
-      value: Summon
-      objectReference: {fileID: 0}
     - target: {fileID: 7279481241280499133, guid: 3485af5a161908c49a011bca6b709ffd, type: 3}
       propertyPath: m_Name
       value: Summoned_Basic
       objectReference: {fileID: 0}
-    - target: {fileID: 7279481241280499133, guid: 3485af5a161908c49a011bca6b709ffd, type: 3}
-      propertyPath: m_TagString
-      value: Summon
-      objectReference: {fileID: 0}
-    - target: {fileID: 8912406548707808724, guid: 3485af5a161908c49a011bca6b709ffd, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 4033d8b1504ac4748be88d9a4ff3231d, type: 2}
-    m_RemovedComponents:
-    - {fileID: 782362276669508394, guid: 3485af5a161908c49a011bca6b709ffd, type: 3}
-    - {fileID: 1444341006102299661, guid: 3485af5a161908c49a011bca6b709ffd, type: 3}
-    - {fileID: 497302820173302441, guid: 3485af5a161908c49a011bca6b709ffd, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -763,7 +748,7 @@ Transform:
   m_GameObject: {fileID: 2129133723}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.54, z: 5.2800007}
+  m_LocalPosition: {x: 15.15, y: 0.54, z: 15.56}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
