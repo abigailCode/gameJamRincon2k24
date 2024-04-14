@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEditor.ShortcutManagement;
 using UnityEngine;
 using UnityEngine.AI;
@@ -23,10 +26,19 @@ public class InvocationBehaviour : MonoBehaviour
 		navAgent = gameObject.GetComponent<NavMeshAgent>();
 	}
 
+	void OnEnable()
+	{
+		Enemy.OnDeadEnemy += HandleDeadEnemy;
+	}
+	void OnDisable()
+	{
+		Enemy.OnDeadEnemy -= HandleDeadEnemy;
+	}
+
 	private void Start()
 	{
 		navAgent.speed = invocation.MovementSpeed;
-		enemiesInScene = GameObject.FindGameObjectsWithTag("Enemy");
+		enemiesInScene = GetAllEnemiesInScene();
 		player = GameObject.FindGameObjectWithTag("Player");
 		SetTaget();
 	}
@@ -46,7 +58,7 @@ public class InvocationBehaviour : MonoBehaviour
 				FollowPlayer();
 				break;
 			case InvocationState.Attacking:
-				//TODO
+				StopMovements();
 				break;
 			case InvocationState.Dead:
 			default:
@@ -61,7 +73,9 @@ public class InvocationBehaviour : MonoBehaviour
 		this.target = target;
 	}
 
-	
+	public void SetAttackEnd() => state = InvocationState.Idle;
+
+	public void SetOnAttack() => state = InvocationState.Attacking;
 	public void SetDead()
 	{
 		state = InvocationState.Dead;
@@ -72,6 +86,10 @@ public class InvocationBehaviour : MonoBehaviour
 	#region PRIVATE METHODS
 	void SetTaget()
 	{
+		if (GetAllEnemiesInScene().Length < 1)
+		{
+			state = InvocationState.FollowingPlayer;
+		}
 		target = GetCloseEnemy();
 		state = InvocationState.ChasingEnemy;
 
@@ -86,37 +104,81 @@ public class InvocationBehaviour : MonoBehaviour
 	}
 	GameObject GetCloseEnemy()
 	{
-		//TODO: SI TODOS LOS ENEMIGOS ESTÁN MUERTOS (NO HAY ENEMIGOS) NO HACER ESTO
 		//Inicializamos la distancia más cercana con un enemigo aleatorio. El primero en la lista.
-		float closestDistance = Vector3.Distance(enemiesInScene[0].transform.position, gameObject.transform.position);
-		GameObject closestEnemy = enemiesInScene[0];
-
-		foreach (GameObject enemy in enemiesInScene)
+		if (enemiesInScene.Length > 0)
 		{
-			// Calcular la distancia entre el jugador y el enemigo actual
-			float distance = Vector3.Distance(enemy.transform.position, gameObject.transform.position);
 
-			// Si la distancia actual es menor que la distancia más cercana encontrada hasta ahora
-			if (distance < closestDistance)
+			GameObject closestEnemy = GetLivingEnemy();
+			float closestDistance = Vector3.Distance(closestEnemy.transform.position, gameObject.transform.position);
+
+			foreach (GameObject enemy in enemiesInScene)
 			{
-				// Actualizar el enemigo más cercano y su distancia
-				closestEnemy = enemy;
-				closestDistance = distance;
+				// Calcular la distancia entre el jugador y el enemigo actual
+				float distance = Vector3.Distance(enemy.transform.position, gameObject.transform.position);
+
+				// Si la distancia actual es menor que la distancia más cercana encontrada hasta ahora
+				if (distance < closestDistance)
+				{
+					// Actualizar el enemigo más cercano y su distancia
+					closestEnemy = enemy;
+					closestDistance = distance;
+				}
 			}
+			return closestEnemy;
 		}
-		return closestEnemy;
+		state = InvocationState.Idle;
+		return null;
 	}
 
 	void ChaseEnemy()
 	{
+		enemiesInScene = GetAllEnemiesInScene();
+		if (!target || !target.activeSelf)
+		{
+			target = null;
+			state = InvocationState.Idle;
+			return;
+		}
 		//Reducir la distancia entre él y el enemigo
-		navAgent.SetDestination(stopPoint);
+		navAgent.SetDestination(target.transform.position);
 		if (gameObject.transform.position == stopPoint)
 			state = InvocationState.Attacking;
-
 	}
-	void FollowPlayer() { }
+	//TODO
+	void FollowPlayer()
+	{
+		Debug.Log("FOLLOWING PLAYER");
+		navAgent.SetDestination(player.transform.position);
+	}
 
+	void StopMovements()
+	{
+		navAgent.isStopped = true;
+	}
+
+	GameObject[] GetAllEnemiesInScene()
+	{
+		GameObject[] allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+		return GameObject.FindGameObjectsWithTag("Enemy");
+
+		//return Array.FindAll(allEnemies, (enemy) => enemy.activeSelf);
+	}
+
+	void HandleDeadEnemy(GameObject enemy)
+	{
+		if (target == enemy)
+		{
+			target = null;
+			state = InvocationState.Idle;
+		}
+		//enemiesInScene = Array.FindAll(enemiesInScene, (enemy) => enemy.activeSelf);
+	}
+
+	GameObject GetLivingEnemy()
+	{
+		//return enemiesInScene.Where<GameObject>(enemy => enemy.activeSelf);
+		return Array.Find<GameObject>( enemiesInScene, (enemy) => enemy.activeSelf);
+	}
 
 	#endregion
 }
