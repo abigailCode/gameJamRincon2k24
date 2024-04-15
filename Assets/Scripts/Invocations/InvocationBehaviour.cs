@@ -92,12 +92,12 @@ public class InvocationBehaviour : MonoBehaviour
 
 		if (!target)
 		{
-			target = player;
-			state = InvocationState.FollowingPlayer;
-		}
+			StopMovements();
+
+        }
 
 		//stopPoint = new Vector3(target.transform.position.x + attackRange, target.transform.position.y, gameObject.transform.position.z);
-		stopPoint = target.transform.position;
+		if(target != null) stopPoint = target.transform.position;
 	}
 	GameObject GetCloseEnemy()
 	{
@@ -155,7 +155,7 @@ public class InvocationBehaviour : MonoBehaviour
 	{
 		Debug.Log("FOLLOWING PLAYER");
 		navAgent.isStopped = false;
-		navAgent.SetDestination(player.transform.position * .5f);
+		navAgent.SetDestination(player.transform.position);
 	}
 
 	void StopMovements()

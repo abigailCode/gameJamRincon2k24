@@ -118,6 +118,7 @@ public class InvocationAttackBehaviour : MonoBehaviour
 		Debug.Log("Attacking");
 		target = enemiesInAttackArea.Find(enemy => enemy.activeSelf);
 		Enemy enemy = target.GetComponent<Enemy>();
+		Debug.Log(invocation.MaxDamage);
 		int currentDamage = (int)Random.Range(invocation.MaxDamage, invocation.MinDamage);
 		enemy.RecibeDano(currentDamage);
 		OnAttackEnemy.Invoke();

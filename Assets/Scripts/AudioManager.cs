@@ -87,6 +87,7 @@ public class AudioManager : MonoBehaviour
             musicSource.Play();
         }
         else Debug.LogWarning("El AudioClip " + clipName + " no se encontr� en el diccionario de musicClips.");
+        musicSource.loop = true;
     }
 
     public void ChangeVolume(float value)

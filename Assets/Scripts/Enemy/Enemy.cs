@@ -30,7 +30,10 @@ public class Enemy : MonoBehaviour
 	public int saludActual;
 	public int damageFromPlayer = 10;
 
-	void Start()
+    private Coroutine summonCoroutine;
+    private Coroutine playerCoroutine;
+
+    void Start()
 	{
 		saludActual = salud;
 		navMeshAgent = GetComponent<NavMeshAgent>();
@@ -52,21 +55,22 @@ public class Enemy : MonoBehaviour
 		if (canAttack)
 		{
 			if (other.CompareTag("Summon"))
-                StartCoroutine(DamageToSummon(other, amountOfDamageToSummon));            
+                summonCoroutine =  StartCoroutine(DamageToSummon(other, amountOfDamageToSummon));            
 
 			if (other.CompareTag("Player"))
-				StartCoroutine(DamageToPlayer(amountOfDamageToPlayer));
+                playerCoroutine = StartCoroutine(DamageToPlayer(amountOfDamageToPlayer));
 		}
 	}
 
 	private void OnTriggerExit(Collider other) {
-        StopCoroutine(DamageToSummon(other, amountOfDamageToSummon));
+		if(summonCoroutine != null)  StopCoroutine(summonCoroutine);
 
-        StopCoroutine(DamageToPlayer(amountOfDamageToPlayer));
+        if (playerCoroutine != null) StopCoroutine(playerCoroutine);
 	}
 
 	public void RecibeDano(int dano)
 	{
+		Debug.Log("Recibiendo da�o: " + dano);
 		saludActual -= dano;
 	}
 
