@@ -16,8 +16,8 @@ MonoBehaviour:
   maxHealth: 500
   manaCost: 25
   invocationCooldown: 10
-  maxDamage: 100
-  minDamage: 50
+  maxDamage: 55
+  minDamage: 25
   attackRange: 20
   cooldownAttack: 0.5
   movementSpeed: 12
