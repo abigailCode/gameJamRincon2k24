@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Invocation_Basic
   m_EditorClassIdentifier: 
   invocationName: Basic
-  maxHealth: 100
+  maxHealth: 10
   manaCost: 5
   invocationCooldown: 1
   maxDamage: 10

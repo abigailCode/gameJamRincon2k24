@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Invocation_Middle
   m_EditorClassIdentifier: 
   invocationName: Middle
-  maxHealth: 200
+  maxHealth: 20
   manaCost: 15
   invocationCooldown: 5
   maxDamage: 50
