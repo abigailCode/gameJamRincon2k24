@@ -99,6 +99,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6206722915508446673, guid: 6908aa83e5e094b4b96217301370a5a2, type: 3}
+      propertyPath: invocation
+      value: 
+      objectReference: {fileID: 11400000, guid: a7e7de23c041a744d8958bd04e8aa7ba, type: 2}
+    - target: {fileID: 6206722915508446673, guid: 6908aa83e5e094b4b96217301370a5a2, type: 3}
       propertyPath: OnEnemyEntryArea.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}

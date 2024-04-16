@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 6057409087821655604}
   - component: {fileID: 8868132713949104863}
   - component: {fileID: 7982568049658521374}
-  - component: {fileID: 6226615659169468804}
   - component: {fileID: 7278860880459350350}
   - component: {fileID: 4665665358652939790}
+  - component: {fileID: 4685573773280417565}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -117,20 +117,6 @@ CapsuleCollider:
   m_Height: 3.22
   m_Direction: 2
   m_Center: {x: 0, y: -0.3, z: 0}
---- !u!114 &6226615659169468804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 377225392350503564}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d2448d302108db4fa5de17db9414e05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
-  rotationSpeed: 10
 --- !u!114 &7278860880459350350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,6 +181,20 @@ MonoBehaviour:
   timeChargeMana: 1
   chargeManaAmount: 5
   deathRotationSpeed: 100
+--- !u!114 &4685573773280417565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377225392350503564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d2448d302108db4fa5de17db9414e05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  rotationSpeed: 10
 --- !u!1 &2462767071953655787
 GameObject:
   m_ObjectHideFlags: 0

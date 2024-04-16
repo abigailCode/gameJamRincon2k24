@@ -90,6 +90,7 @@ public class PlayerSummon : MonoBehaviour {
         if (manaObj.getMana() >= manaCost[numList]) {
             manaObj.TakeMana(manaCost[numList]);
             Instantiate(summon[numList], CalculateSummonPosition(), Quaternion.identity);
+            Debug.Log("Summon " + numList + " instanciado");
             AudioManager.instance.PlaySFX("summonSpawn");
             StartCoroutine(SummonCooldown(numList));
         }

@@ -119,7 +119,8 @@ public class InvocationAttackBehaviour : MonoBehaviour
 		target = enemiesInAttackArea.Find(enemy => enemy.activeSelf);
 		Enemy enemy = target.GetComponent<Enemy>();
 		Debug.Log(invocation.MaxDamage);
-		int currentDamage = (int)Random.Range(invocation.MaxDamage, invocation.MinDamage);
+        Debug.Log(invocation.name);
+        int currentDamage = (int)Random.Range(invocation.MaxDamage, invocation.MinDamage);
 		enemy.RecibeDano(currentDamage);
 		OnAttackEnemy.Invoke();
         AudioManager.instance.PlaySFX("summonAttack");
